@@ -1,13 +1,14 @@
+import json
 import os
 
 import gymnasium as gym
 import numpy as np
 import highway_env
 import yaml
+from dotenv import load_dotenv
 from gymnasium.wrappers import RecordVideo
 from openai import OpenAI
 
-# Custom Tools
 from LLMDriver.customTools import (
     getAvailableActions,
     getAvailableLanes,
@@ -21,6 +22,53 @@ from LLMDriver.customTools import (
 from LLMDriver.driverAgent import DriverAgent
 from LLMDriver.outputAgent import OutputParser
 from scenario.scenario import Scenario
+
+load_dotenv()
+
+CONTROL_FILE = 'mission_control.json'
+
+
+def get_dynamic_config(current_weather, current_instruction):
+    """
+    Smart Config Loader:
+    1. Handles invalid JSON (User is typing)
+    2. Checks for CONFIRM_UPDATE flag (User is drafting)
+    """
+    if not os.path.exists(CONTROL_FILE):
+        # Initialize with CONFIRM_UPDATE = True so it works out of the box
+        with open(CONTROL_FILE, 'w') as f:
+            json.dump({
+                "weather": current_weather,
+                "instruction": current_instruction,
+                "CONFIRM_UPDATE": True
+            }, f, indent=4)
+        return current_weather, current_instruction, False
+
+    try:
+        with open(CONTROL_FILE, 'r') as f:
+            data = json.load(f)
+
+        # MARKER CHECK:
+        # If the user sets this to False, we ignore changes (Draft Mode)
+        if not data.get("CONFIRM_UPDATE", False):
+            return current_weather, current_instruction, False
+
+        new_weather = data.get("weather", current_weather)
+        new_instruction = data.get("instruction", current_instruction)
+
+        # Only trigger update if values actually changed
+        has_changed = (new_weather != current_weather) or (new_instruction != current_instruction)
+
+        return new_weather, new_instruction, has_changed
+
+    except json.JSONDecodeError:
+        # User is likely typing (e.g., missing comma/bracket)
+        # We silently ignore this and keep running with old config
+        return current_weather, current_instruction, False
+
+    except Exception as e:
+        print(f"[red]Control File Error: {e}[/red]")
+        return current_weather, current_instruction, False
 
 
 def create_llm_client(config):
@@ -38,14 +86,14 @@ def create_llm_client(config):
     if provider == 'groq':
         client = OpenAI(
             base_url="https://api.groq.com/openai/v1",
-            api_key=config.get('GROQ_KEY', '')
+            api_key=os.getenv('GROQ_KEY', '')
         )
         model_name = config.get('GROQ_MODEL', 'openai/gpt-oss-20b')
         print(f"[bold cyan]Using Groq with model: {model_name}[/bold cyan]")
 
     elif provider == 'openai':
         client = OpenAI(
-            api_key=config.get('OPENAI_KEY', '')
+            api_key=os.getenv('OPENAI_KEY', '')
         )
         model_name = config.get('OPENAI_MODEL', 'gpt-4o')
         print(f"[bold cyan]Using OpenAI with model: {model_name}[/bold cyan]")
@@ -64,15 +112,34 @@ def create_llm_client(config):
     return client, model_name
 
 
-# 1. Configuration
+def apply_weather_physics(env, weather):
+    obs_noise = 0.0
+    if weather == "foggy":
+        obs_noise = 2.5
+    elif weather == "rainy":
+        obs_noise = 1.0
+    elif weather == "sunny":
+        obs_noise = 0.0
+    elif weather == "windy":
+        obs_noise = 0.5
+    elif weather == "snowy":
+        obs_noise = 1.5
+
+    try:
+        env.unwrapped.observation_type.observation_noise = obs_noise
+    except AttributeError:
+        pass
+
+
 with open('config.yaml') as f:
     CONFIG = yaml.load(f, Loader=yaml.FullLoader)
-
-# 2. Initialize Client
 client, MODEL_NAME = create_llm_client(CONFIG)
 
-# 3. Environment Config
+current_weather = os.getenv('WEATHER_CONDITION', 'sunny')
+current_instruction = os.getenv('MISSION_INSTRUCTION', 'Drive safely')
+
 vehicleCount = CONFIG.get('SIMULATION', {}).get('VEHICLE_COUNT', 15)
+
 config = {
     "observation": {
         "type": "Kinematics",
@@ -81,6 +148,7 @@ config = {
         "normalize": False,
         "vehicles_count": vehicleCount,
         "see_behind": True,
+        "observation_noise": 0.0,
     },
     "action": {
         "type": "DiscreteMetaAction",
@@ -92,10 +160,7 @@ config = {
     "render_agent": True,
 }
 
-# 4. Setup Environment
 env = gym.make('highway-v0', render_mode="rgb_array")
-
-# --- FIX: Use .unwrapped to access custom configure method ---
 env.unwrapped.configure(config)
 # -------------------------------------------------------------
 
@@ -112,13 +177,11 @@ env = RecordVideo(
 
 obs, info = env.reset()
 
-# 5. Scenario and Agent Setup
 if not os.path.exists('results-db/'):
     os.mkdir('results-db')
 database = f"results-db/highwayv0.db"
 sce = Scenario(vehicleCount, database)
 
-# Initialize Tools
 toolModels = [
     getAvailableActions(env),
     getAvailableLanes(sce),
@@ -130,7 +193,6 @@ toolModels = [
     isActionSafe(),
 ]
 
-# Initialize Agents
 is_ollama = CONFIG.get('LLM_PROVIDER', 'groq').lower() == 'ollama'
 
 DA = DriverAgent(
@@ -139,7 +201,9 @@ DA = DriverAgent(
     sce=sce,
     model_name=MODEL_NAME,
     verbose=True,
-    is_ollama=is_ollama
+    is_ollama=is_ollama,
+    weather=current_weather,
+    instruction=current_instruction
 )
 
 outputParser = OutputParser(
@@ -154,18 +218,33 @@ output = None
 done = truncated = False
 frame = 0
 
-print(f"[bold green]Starting Simulation with Model: {MODEL_NAME}[/bold green]")
+print(f"[bold green]Simulation Running.[/bold green]")
+print(f"Edit [bold]mission_control.json[/bold] and set [bold]\"CONFIRM_UPDATE\": true[/bold] to apply changes.")
 
 try:
     while not (done or truncated):
-        # Update Scenario
-        sce.upateVehicles(obs, frame)
+        print(f"\n{'*' * 100}")
+        print(f"* SIMULATION FRAME {frame}")
+        print(f"{'*' * 100}")
 
-        # Run Driver Agent
+        # CHECK FOR UPDATES
+        new_weather, new_instruction, changed = get_dynamic_config(current_weather, current_instruction)
+
+        if changed:
+            print(f"\n[bold yellow]⚠ HOT RELOAD DETECTED (Frame {frame})[/bold yellow]")
+            print(f"Instruction: {new_instruction}")
+            print(f"Weather: {new_weather}")
+
+            DA.weather = new_weather
+            DA.instruction = new_instruction
+            apply_weather_physics(env, new_weather)
+
+            current_weather = new_weather
+            current_instruction = new_instruction
+
+        sce.upateVehicles(obs, frame)
         DA.agentRun(output)
         da_output = DA.exportThoughts()
-
-        # Run Output Parser
         output = outputParser.agentRun(da_output)
 
         # Safe Action Handling
@@ -180,8 +259,6 @@ try:
 
         # Step Environment
         obs, reward, done, truncated, info = env.step(action_id)
-
-        # Render
         env.render()
 
         print(f"Frame {frame}: Action {action_id} | {output.get('action_name', 'Unknown')}")

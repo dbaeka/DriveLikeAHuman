@@ -22,7 +22,9 @@ class DriverAgent:
             sce: Scenario,
             model_name: str = "openai/gpt-oss-20b",
             verbose: bool = False,
-            is_ollama: bool = False
+            is_ollama: bool = False,
+            weather: str = "sunny",
+            instruction: str = "Drive safely"
     ) -> None:
         self.client = client
         self.model_name = model_name
@@ -30,6 +32,8 @@ class DriverAgent:
         self.verbose = verbose
         self.is_ollama = is_ollama
         self.ch = CustomHandler()
+        self.weather = weather
+        self.instruction = instruction
 
         self.tool_registry = {}
         self.tools_schema = []
