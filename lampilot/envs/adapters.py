@@ -1,35 +1,29 @@
 import gymnasium as gym
-import highway_env
+from lampilot.vehicle import PhysicsVehicle
 
 
-def make_lampilot_env(env_id="highway-fast-v0", render_mode="rgb_array"):
+def make_lampilot_env(env_id, density=1.0):
     """
-    Creates a highway-env instance configured for LaMPilot.
-    We need 'Kinematics' observation to easily parse vehicle positions.
+    Creates the environment with custom PhysicsVehicle.
     """
-    env = gym.make(env_id, render_mode=render_mode)
-
-    # Configure the environment to return raw vehicle coordinates
-    env.unwrapped.configure({
+    config = {
         "observation": {
             "type": "Kinematics",
-            "vehicles_count": 10,
-            "features": ["presence", "x", "y", "vx", "vy", "cos_h", "sin_h"],
-            "features_range": {
-                "x": [-100, 100],
-                "y": [-100, 100],
-                "vx": [-20, 20],
-                "vy": [-20, 20]
-            },
-            "absolute": False,
+            "vehicles_count": 15,
+            "features": ["presence", "x", "y", "vx", "vy"],
             "normalize": True
         },
         "action": {
             "type": "DiscreteMetaAction",
         },
-        "simulation_frequency": 15,
-        "policy_frequency": 1,
-        "duration": 40  # Seconds
-    })
+        "duration": 40,
+        "vehicles_count": int(20 * density),
+        "controlled_vehicles": 1,
+        "initial_vehicle_count": 10
+    }
+
+    env = gym.make(env_id, render_mode="human", config=config)
+
+    env.unwrapped.vehicle_class = PhysicsVehicle
 
     return env

@@ -1,5 +1,6 @@
 import os
 import re
+
 import dotenv
 from openai import OpenAI
 
@@ -7,13 +8,13 @@ from lampilot.prompts import SYSTEM_PROMPT
 
 dotenv.load_dotenv()
 
+
 class LLMAgent:
     """
     Real implementation using OpenAI API to generate driving policies.
     """
 
     def __init__(self, model_name="openai/gpt-oss-20b"):
-        # Ensure API key is set
         api_key = os.getenv("GROQ_KEY")
         if not api_key:
             raise ValueError("OPENAI_API_KEY environment variable is missing.")
@@ -21,30 +22,30 @@ class LLMAgent:
         self.client = OpenAI(api_key=api_key, base_url="https://api.groq.com/openai/v1")
         self.model_name = model_name
 
-    def generate_policy(self, instruction):
+    def generate_policy(self, instruction, env_info):
         """
-        Sends the user instruction to the LLM and retrieves the Python code.
+        env_info: dict containing weather, time, density
         """
-        print(f"🤖 Connecting to OpenAI ({self.model_name})...")
-        print(f"   Instruction: '{instruction}'")
+        context_str = f"""
+        User Instruction: "{instruction}"
+        Current Environment:
+        - Weather: {env_info.get('weather', 'Clear')}
+        - Time: {env_info.get('time_of_day', 'Day')}
+        - Traffic Density: {env_info.get('density', 'Normal')}
+        """
 
-        try:
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=[
-                    {"role": "system", "content": SYSTEM_PROMPT},
-                    {"role": "user", "content": f"Instruction: {instruction}"}
-                ],
-                temperature=0.0  # Deterministic for code generation
-            )
+        print(f"Context Sent to LLM:\n{context_str}")
 
-            raw_content = response.choices[0].message.content
-            return self._clean_code(raw_content)
+        response = self.client.chat.completions.create(
+            model=self.model_name,
+            messages=[
+                {"role": "system", "content": SYSTEM_PROMPT},
+                {"role": "user", "content": context_str}
+            ],
+            temperature=0.0
+        )
 
-        except Exception as e:
-            print(f"❌ OpenAI API Error: {e}")
-            # Fallback safe policy if API fails
-            return "def policy(api): api.slow_down()"
+        return self._clean_code(response.choices[0].message.content)
 
     def _clean_code(self, raw_text):
         """
@@ -57,7 +58,6 @@ class LLMAgent:
         if code_match:
             return code_match.group(1).strip()
 
-        # If no markdown tags, assume the whole text is code (risky but necessary fallback)
         # We strip non-code conversational lines if they start with #
         lines = [line for line in raw_text.split('\n') if
                  not line.strip().lower().startswith(('here', 'sure', 'i have'))]
