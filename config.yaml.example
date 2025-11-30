@@ -10,6 +10,7 @@ LLM_PROVIDER: 'groq'
 # ============================================
 # Groq Configuration
 # ============================================
+GROQ_KEY: 'your-groq-api-key-here'
 GROQ_MODEL: 'openai/gpt-oss-20b'
 # Available models:
 # - openai/gpt-oss-120b (Recommended)
@@ -20,6 +21,7 @@ GROQ_MODEL: 'openai/gpt-oss-20b'
 # ============================================
 # OpenAI Configuration
 # ============================================
+OPENAI_KEY: 'your-openai-api-key-here'
 OPENAI_MODEL: 'gpt-4o'
 # Available models:
 # - gpt-4o (Latest, best reasoning)
