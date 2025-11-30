@@ -2,9 +2,11 @@
   {
     "id": "100",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Day",
       "density": 1.5
     }
@@ -12,7 +14,21 @@
   {
     "id": "101",
     "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "102",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Day",
@@ -20,39 +36,35 @@
     }
   },
   {
-    "id": "102",
-    "scenario": "highway-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
     "id": "103",
-    "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.5
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "104",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.0
     }
   },
   {
     "id": "105",
     "scenario": "highway-fast-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Night",
@@ -62,49 +74,59 @@
   {
     "id": "106",
     "scenario": "highway-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "107",
     "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "108",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "109",
-    "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
-    "environment": {
-      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "110",
+    "id": "108",
+    "scenario": "highway-fast-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "109",
     "scenario": "highway-v0",
     "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "110",
+    "scenario": "highway-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.5
     }
@@ -112,27 +134,45 @@
   {
     "id": "111",
     "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 2.0
     }
   },
   {
     "id": "112",
-    "scenario": "highway-fast-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
+    "scenario": "highway-v0",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 2.0
     }
   },
   {
     "id": "113",
     "scenario": "highway-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "114",
+    "scenario": "highway-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Day",
@@ -140,21 +180,13 @@
     }
   },
   {
-    "id": "114",
-    "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
     "id": "115",
-    "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "scenario": "highway-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Day",
       "density": 1.0
     }
@@ -162,87 +194,57 @@
   {
     "id": "116",
     "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
     "id": "117",
-    "scenario": "highway-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "118",
     "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
     "id": "119",
     "scenario": "highway-v0",
-    "instruction": "Visibility is limited. Slow down.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "120",
-    "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "121",
-    "scenario": "highway-fast-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "122",
-    "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
-    "environment": {
-      "weather": "Rain",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
-    "id": "123",
-    "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "124",
-    "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "id": "120",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
@@ -250,49 +252,95 @@
     }
   },
   {
-    "id": "125",
+    "id": "121",
+    "scenario": "highway-v0",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "122",
+    "scenario": "highway-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "123",
     "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "124",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "125",
+    "scenario": "highway-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "126",
     "scenario": "highway-v0",
-    "instruction": "No rush today. Just cruise safely.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "127",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "128",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
-    "environment": {
-      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
-    "id": "129",
+    "id": "127",
     "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "128",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
@@ -300,49 +348,35 @@
     }
   },
   {
+    "id": "129",
+    "scenario": "highway-fast-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
     "id": "130",
     "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
     "id": "131",
-    "scenario": "highway-fast-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "132",
     "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "133",
-    "scenario": "highway-v0",
-    "instruction": "No rush today. Just cruise safely.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "134",
-    "scenario": "highway-fast-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
@@ -350,69 +384,119 @@
     }
   },
   {
-    "id": "135",
+    "id": "132",
     "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "133",
+    "scenario": "highway-v0",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.5
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "134",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "135",
+    "scenario": "highway-v0",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.0
     }
   },
   {
     "id": "136",
-    "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "scenario": "highway-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.5
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "137",
-    "scenario": "highway-v0",
+    "scenario": "highway-fast-v0",
     "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "138",
     "scenario": "highway-fast-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
+      "weather": "Foggy",
+      "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "139",
     "scenario": "highway-fast-v0",
-    "instruction": "It is dark. Drive conservatively.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "140",
     "scenario": "highway-fast-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.0
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "141",
-    "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Day",
@@ -421,30 +505,36 @@
   },
   {
     "id": "142",
-    "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
       "density": 1.0
     }
   },
   {
     "id": "143",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "144",
     "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 1.5
     }
@@ -452,327 +542,321 @@
   {
     "id": "145",
     "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.0
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "146",
-    "scenario": "highway-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
+      "weather": "Snow",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "147",
     "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 1.5
     }
   },
   {
     "id": "148",
     "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "149",
-    "scenario": "highway-v0",
-    "instruction": "No rush today. Just cruise safely.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "150",
-    "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "151",
     "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
+    "id": "150",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "151",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
     "id": "152",
     "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 1.0
     }
   },
   {
     "id": "153",
     "scenario": "highway-fast-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
     "id": "154",
     "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "155",
-    "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
-    "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 1.0
     }
   },
   {
-    "id": "156",
+    "id": "155",
     "scenario": "highway-fast-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
+    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 2.0
     }
   },
   {
-    "id": "157",
+    "id": "156",
     "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
+      "weather": "Foggy",
+      "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "158",
-    "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "id": "157",
+    "scenario": "highway-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 2.0
+    }
+  },
+  {
+    "id": "158",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.0
     }
   },
   {
     "id": "159",
-    "scenario": "highway-fast-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "scenario": "highway-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.5
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "160",
     "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 1.5
     }
   },
   {
     "id": "161",
-    "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.5
     }
   },
   {
     "id": "162",
     "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Visibility is limited. Slow down.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "163",
     "scenario": "highway-fast-v0",
     "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "164",
     "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.5
     }
   },
   {
     "id": "165",
-    "scenario": "highway-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
+      "weather": "Clear",
+      "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
     "id": "166",
-    "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
     "id": "167",
     "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Visibility is limited. Slow down.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
     "id": "168",
-    "scenario": "highway-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "scenario": "highway-fast-v0",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.5
     }
   },
   {
     "id": "169",
     "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "170",
-    "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "scenario": "highway-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "171",
     "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "172",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "173",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "174",
-    "scenario": "highway-fast-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "175",
-    "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "176",
-    "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "177",
-    "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Day",
@@ -780,59 +864,131 @@
     }
   },
   {
-    "id": "178",
+    "id": "172",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "173",
     "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "174",
+    "scenario": "highway-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "175",
+    "scenario": "highway-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "176",
+    "scenario": "highway-fast-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "177",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "178",
+    "scenario": "highway-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
       "density": 1.0
     }
   },
   {
     "id": "179",
     "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
     "id": "180",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
     "id": "181",
-    "scenario": "highway-fast-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "scenario": "highway-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "182",
-    "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Clear",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
-    "id": "183",
-    "scenario": "highway-fast-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "id": "182",
+    "scenario": "highway-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Night",
@@ -840,19 +996,11 @@
     }
   },
   {
-    "id": "184",
-    "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "185",
+    "id": "183",
     "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Day",
@@ -860,81 +1008,121 @@
     }
   },
   {
-    "id": "186",
+    "id": "184",
     "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "187",
-    "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.0
     }
   },
   {
-    "id": "188",
+    "id": "185",
     "scenario": "highway-fast-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "189",
-    "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "190",
-    "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "191",
-    "scenario": "highway-fast-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
-    "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
-    "id": "192",
+    "id": "186",
     "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
+      "weather": "Snow",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.0
+    }
+  },
+  {
+    "id": "187",
+    "scenario": "highway-fast-v0",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "188",
+    "scenario": "highway-fast-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "189",
+    "scenario": "highway-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "190",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "191",
+    "scenario": "highway-fast-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "192",
+    "scenario": "highway-fast-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "193",
     "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Snow",
       "time_of_day": "Day",
       "density": 1.5
     }
@@ -942,37 +1130,33 @@
   {
     "id": "194",
     "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "195",
-    "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "scenario": "highway-fast-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "196",
-    "scenario": "highway-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "197",
-    "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Day",
@@ -980,169 +1164,203 @@
     }
   },
   {
+    "id": "197",
+    "scenario": "highway-fast-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
     "id": "198",
     "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "199",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "200",
+    "scenario": "highway-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "199",
-    "scenario": "highway-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "200",
-    "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
     "id": "201",
-    "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
+      "weather": "Clear",
+      "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "202",
     "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "203",
-    "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "204",
-    "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "205",
-    "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "206",
-    "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
-    "environment": {
-      "weather": "Rain",
       "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
-    "id": "207",
+    "id": "203",
     "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
-    "id": "208",
+    "id": "204",
+    "scenario": "highway-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "205",
     "scenario": "highway-v0",
     "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "206",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "207",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "208",
+    "scenario": "highway-fast-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "209",
-    "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
+      "weather": "Foggy",
+      "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "210",
-    "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "scenario": "highway-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "211",
-    "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "scenario": "highway-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Night",
-      "density": 2.5
+      "density": 1.5
     }
   },
   {
     "id": "212",
-    "scenario": "highway-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "213",
     "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "214",
-    "scenario": "highway-fast-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
@@ -1150,9 +1368,47 @@
     }
   },
   {
+    "id": "214",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
     "id": "215",
+    "scenario": "highway-v0",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "216",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "217",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
@@ -1160,59 +1416,35 @@
     }
   },
   {
-    "id": "216",
+    "id": "218",
     "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "217",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
+      "weather": "Rain",
+      "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
-    "id": "218",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
     "id": "219",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "220",
     "scenario": "highway-fast-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "221",
-    "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
@@ -1220,21 +1452,37 @@
     }
   },
   {
+    "id": "221",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
     "id": "222",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
     "id": "223",
     "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 2.0
     }
@@ -1242,39 +1490,47 @@
   {
     "id": "224",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.0
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "225",
-    "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
+    "scenario": "highway-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "226",
-    "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "scenario": "highway-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.5
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "227",
     "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Foggy",
       "time_of_day": "Night",
       "density": 2.5
     }
@@ -1282,19 +1538,23 @@
   {
     "id": "228",
     "scenario": "highway-fast-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 2.0
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "229",
     "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
       "time_of_day": "Night",
       "density": 1.0
     }
@@ -1302,37 +1562,9 @@
   {
     "id": "230",
     "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "231",
-    "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "232",
-    "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "233",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Night",
@@ -1340,99 +1572,131 @@
     }
   },
   {
-    "id": "234",
+    "id": "231",
+    "scenario": "highway-fast-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "232",
+    "scenario": "highway-fast-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "233",
     "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
-      "density": 2.5
+      "density": 1.5
+    }
+  },
+  {
+    "id": "234",
+    "scenario": "highway-fast-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "235",
     "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
     "id": "236",
-    "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "scenario": "highway-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.0
     }
   },
   {
     "id": "237",
-    "scenario": "highway-fast-v0",
-    "instruction": "It is dark. Drive conservatively.",
+    "scenario": "highway-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.5
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "238",
-    "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 2.0
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "239",
     "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Snow",
       "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
     "id": "240",
-    "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "241",
-    "scenario": "highway-fast-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "242",
     "scenario": "highway-v0",
     "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
+      "weather": "Clear",
+      "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
-    "id": "243",
+    "id": "241",
     "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Day",
@@ -1440,19 +1704,47 @@
     }
   },
   {
-    "id": "244",
+    "id": "242",
     "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "243",
+    "scenario": "highway-fast-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.0
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "244",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "245",
-    "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "scenario": "highway-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Day",
@@ -1462,49 +1754,59 @@
   {
     "id": "246",
     "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
     "id": "247",
     "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "248",
-    "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
+      "weather": "Foggy",
+      "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "249",
     "scenario": "highway-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "250",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 2.0
     }
@@ -1512,167 +1814,201 @@
   {
     "id": "251",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.0
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "252",
     "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "253",
     "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "254",
     "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 1.5
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "255",
-    "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.5
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.0
     }
   },
   {
     "id": "256",
-    "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "scenario": "highway-v0",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.0
     }
   },
   {
     "id": "257",
-    "scenario": "highway-fast-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "258",
     "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 2.5
     }
   },
   {
     "id": "259",
-    "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
+      "weather": "Foggy",
+      "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
     "id": "260",
-    "scenario": "highway-fast-v0",
+    "scenario": "highway-v0",
     "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "261",
+    "scenario": "highway-fast-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
-    "id": "261",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "id": "262",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "262",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
-    "environment": {
-      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 2.0
     }
   },
   {
     "id": "263",
     "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
+      "weather": "Rain",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "264",
-    "scenario": "highway-fast-v0",
-    "instruction": "It is dark. Drive conservatively.",
+    "scenario": "highway-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Snow",
       "time_of_day": "Night",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "265",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Snow",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.5
     }
   },
   {
     "id": "266",
     "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.5
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "267",
     "scenario": "highway-v0",
     "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Day",
@@ -1682,77 +2018,93 @@
   {
     "id": "268",
     "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "269",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "270",
-    "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "271",
+    "id": "269",
     "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "270",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "271",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
       "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "272",
-    "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "scenario": "highway-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 1.5
     }
   },
   {
     "id": "273",
-    "scenario": "highway-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
     "id": "274",
     "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
     "id": "275",
-    "scenario": "highway-fast-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "scenario": "highway-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Day",
@@ -1761,18 +2113,22 @@
   },
   {
     "id": "276",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.5
     }
   },
   {
     "id": "277",
     "scenario": "highway-fast-v0",
-    "instruction": "It is dark. Drive conservatively.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
@@ -1782,69 +2138,83 @@
   {
     "id": "278",
     "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 2.0
     }
   },
   {
     "id": "279",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "280",
     "scenario": "highway-fast-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 2.0
     }
   },
   {
     "id": "281",
     "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Visibility is limited. Slow down.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 2.0
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "282",
     "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "283",
-    "scenario": "highway-fast-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "scenario": "highway-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "284",
     "scenario": "highway-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 1.0
     }
@@ -1852,19 +2222,23 @@
   {
     "id": "285",
     "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.0
     }
   },
   {
     "id": "286",
-    "scenario": "highway-fast-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "scenario": "highway-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.0
     }
@@ -1872,120 +2246,144 @@
   {
     "id": "287",
     "scenario": "highway-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "288",
-    "scenario": "highway-v0",
-    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.0
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "289",
-    "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "scenario": "highway-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.0
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "290",
     "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "291",
-    "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
-    "environment": {
-      "weather": "Clear",
       "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
-    "id": "292",
+    "id": "291",
     "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "293",
-    "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
-    "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 1.0
     }
   },
   {
-    "id": "294",
+    "id": "292",
     "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "293",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "294",
+    "scenario": "highway-v0",
+    "instruction": "Visibility is limited. Slow down.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
     "id": "295",
-    "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "296",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
       "time_of_day": "Day",
       "density": 1.0
     }
   },
   {
-    "id": "296",
-    "scenario": "highway-fast-v0",
-    "instruction": "Visibility is limited. Slow down.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
     "id": "297",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.5
     }
   },
   {
     "id": "298",
-    "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
+      "weather": "Clear",
+      "time_of_day": "Night",
       "density": 1.0
     }
   },
@@ -1993,39 +2391,47 @@
     "id": "299",
     "scenario": "highway-v0",
     "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "300",
+    "scenario": "highway-fast-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
       "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
-    "id": "300",
-    "scenario": "highway-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
     "id": "301",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.0
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "302",
-    "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
+      "weather": "Rain",
+      "time_of_day": "Day",
       "density": 1.0
     }
   },
@@ -2033,8 +2439,10 @@
     "id": "303",
     "scenario": "highway-v0",
     "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 1.0
     }
@@ -2042,387 +2450,489 @@
   {
     "id": "304",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "305",
     "scenario": "highway-fast-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.0
     }
   },
   {
     "id": "306",
-    "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
+    "scenario": "highway-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "307",
     "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Snow",
       "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "308",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "scenario": "highway-fast-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "309",
     "scenario": "highway-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
+      "weather": "Snow",
+      "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "310",
-    "scenario": "highway-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "311",
-    "scenario": "highway-v0",
-    "instruction": "Visibility is limited. Slow down.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
+      "weather": "Foggy",
+      "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
     "id": "312",
-    "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "scenario": "highway-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
     "id": "313",
-    "scenario": "highway-fast-v0",
+    "scenario": "highway-v0",
     "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "314",
     "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.5
     }
   },
   {
     "id": "315",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "316",
     "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "317",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "318",
-    "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "319",
-    "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "320",
-    "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "321",
-    "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "322",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "323",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "324",
-    "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "325",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "326",
-    "scenario": "highway-fast-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
-    "environment": {
-      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "327",
+    "id": "316",
     "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Day",
       "density": 1.0
+    }
+  },
+  {
+    "id": "317",
+    "scenario": "highway-fast-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "318",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "319",
+    "scenario": "highway-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "320",
+    "scenario": "highway-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "321",
+    "scenario": "highway-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "322",
+    "scenario": "highway-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "323",
+    "scenario": "highway-fast-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "324",
+    "scenario": "highway-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "325",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "326",
+    "scenario": "highway-v0",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "327",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "328",
-    "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "scenario": "highway-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
     "id": "329",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
+      "weather": "Rain",
+      "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "330",
     "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
+      "weather": "Foggy",
+      "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
     "id": "331",
-    "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 2.0
     }
   },
   {
     "id": "332",
     "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 2.0
     }
   },
   {
     "id": "333",
-    "scenario": "highway-fast-v0",
+    "scenario": "highway-v0",
     "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 1.0
     }
   },
   {
     "id": "334",
-    "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "scenario": "highway-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "335",
     "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 2.5
     }
   },
   {
     "id": "336",
-    "scenario": "highway-fast-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 2.0
     }
   },
   {
     "id": "337",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 2.5
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "338",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 2.5
     }
   },
   {
     "id": "339",
-    "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "scenario": "highway-fast-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.5
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "340",
     "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "341",
-    "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
-    "environment": {
-      "weather": "Snow",
+      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
+    "id": "341",
+    "scenario": "highway-v0",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
     "id": "342",
     "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "343",
+    "scenario": "highway-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "344",
+    "scenario": "highway-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Night",
@@ -2430,19 +2940,35 @@
     }
   },
   {
-    "id": "343",
-    "scenario": "highway-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
+    "id": "345",
+    "scenario": "highway-fast-v0",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
-    "id": "344",
+    "id": "346",
     "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "347",
+    "scenario": "highway-fast-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Day",
@@ -2450,71 +2976,49 @@
     }
   },
   {
-    "id": "345",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "346",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "347",
-    "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
     "id": "348",
     "scenario": "highway-v0",
-    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
+      "weather": "Clear",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "349",
-    "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "scenario": "highway-fast-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "350",
-    "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "351",
-    "scenario": "highway-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 1.0
     }
@@ -2522,97 +3026,105 @@
   {
     "id": "352",
     "scenario": "highway-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
     "id": "353",
-    "scenario": "highway-v0",
-    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "354",
     "scenario": "highway-v0",
-    "instruction": "Visibility is limited. Slow down.",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Night",
-      "density": 1.5
+      "density": 1.0
     }
   },
   {
     "id": "355",
-    "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 2.5
     }
   },
   {
     "id": "356",
     "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
+      "weather": "Rain",
+      "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
     "id": "357",
     "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "358",
-    "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
-    "id": "359",
-    "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "id": "358",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 1.0
+    }
+  },
+  {
+    "id": "359",
+    "scenario": "highway-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "360",
-    "scenario": "highway-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "361",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Day",
@@ -2620,59 +3132,59 @@
     }
   },
   {
-    "id": "362",
-    "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "id": "361",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "363",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
+      "weather": "Snow",
+      "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
-    "id": "364",
-    "scenario": "highway-fast-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "id": "362",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "363",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
       "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
-    "id": "365",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "id": "364",
+    "scenario": "highway-fast-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "366",
-    "scenario": "highway-v0",
-    "instruction": "No rush today. Just cruise safely.",
-    "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "367",
+    "id": "365",
     "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Night",
@@ -2680,11 +3192,37 @@
     }
   },
   {
+    "id": "366",
+    "scenario": "highway-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "367",
+    "scenario": "highway-v0",
+    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
     "id": "368",
     "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 2.0
     }
@@ -2692,117 +3230,105 @@
   {
     "id": "369",
     "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "370",
     "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.5
     }
   },
   {
     "id": "371",
     "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
+      "weather": "Snow",
+      "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
     "id": "372",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "373",
-    "scenario": "highway-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "374",
-    "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
-    "environment": {
-      "weather": "Rain",
+      "weather": "Snow",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
+    "id": "373",
+    "scenario": "highway-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "374",
+    "scenario": "highway-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
     "id": "375",
     "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 1.0
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "376",
-    "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "377",
     "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "378",
-    "scenario": "highway-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "379",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "380",
-    "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
@@ -2810,19 +3336,59 @@
     }
   },
   {
-    "id": "381",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "id": "378",
+    "scenario": "highway-fast-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "379",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
       "density": 2.0
+    }
+  },
+  {
+    "id": "380",
+    "scenario": "highway-fast-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "381",
+    "scenario": "highway-v0",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "382",
     "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
@@ -2832,297 +3398,297 @@
   {
     "id": "383",
     "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 1.5
     }
   },
   {
     "id": "384",
-    "scenario": "highway-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.5
     }
   },
   {
     "id": "385",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.0
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "386",
     "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.0
     }
   },
   {
     "id": "387",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "scenario": "highway-fast-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 2.0
     }
   },
   {
     "id": "388",
     "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "389",
     "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
+      "weather": "Clear",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "390",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "391",
     "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.5
     }
   },
   {
     "id": "392",
     "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "393",
-    "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.0
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "394",
     "scenario": "highway-v0",
-    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
     "id": "395",
-    "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "396",
     "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Visibility is limited. Slow down.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 1.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "397",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-v0",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 2.0
     }
   },
   {
     "id": "398",
-    "scenario": "highway-fast-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "scenario": "highway-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "399",
     "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "400",
     "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.0
     }
   },
   {
     "id": "401",
     "scenario": "highway-fast-v0",
-    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 2.5
     }
   },
   {
     "id": "402",
     "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "403",
-    "scenario": "highway-fast-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "404",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
-    "environment": {
-      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "405",
+    "id": "403",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 2.0
+    }
+  },
+  {
+    "id": "404",
+    "scenario": "highway-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "405",
+    "scenario": "highway-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "406",
     "scenario": "highway-fast-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 2.5
     }
   },
   {
     "id": "407",
     "scenario": "highway-fast-v0",
     "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "408",
-    "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "409",
-    "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "410",
-    "scenario": "highway-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "411",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "412",
-    "scenario": "highway-v0",
-    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Night",
@@ -3130,81 +3696,157 @@
     }
   },
   {
-    "id": "413",
+    "id": "408",
     "scenario": "highway-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
-    "id": "414",
+    "id": "409",
     "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "410",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "411",
+    "scenario": "highway-fast-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "412",
+    "scenario": "highway-fast-v0",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
-    "id": "415",
+    "id": "413",
     "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
-    "id": "416",
+    "id": "414",
     "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "415",
+    "scenario": "highway-v0",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "416",
+    "scenario": "highway-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
     "id": "417",
     "scenario": "highway-v0",
-    "instruction": "Take me to the destination.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "418",
-    "scenario": "highway-fast-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "419",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
-    "id": "420",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
+    "id": "418",
+    "scenario": "highway-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "419",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "420",
+    "scenario": "highway-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 1.5
     }
@@ -3212,140 +3854,168 @@
   {
     "id": "421",
     "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.5
     }
   },
   {
     "id": "422",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "423",
     "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "424",
-    "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "425",
-    "scenario": "highway-fast-v0",
-    "instruction": "Just follow the traffic flow.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "426",
-    "scenario": "highway-v0",
     "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
+    "id": "423",
+    "scenario": "highway-fast-v0",
+    "instruction": "Visibility is limited. Slow down.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "424",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "425",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "426",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
     "id": "427",
     "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "428",
-    "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "scenario": "highway-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "429",
+    "scenario": "highway-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
       "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
-    "id": "429",
+    "id": "430",
     "scenario": "highway-fast-v0",
-    "instruction": "It looks dangerous out there. Drive carefully.",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
+      "weather": "Rain",
+      "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "430",
-    "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
     "id": "431",
-    "scenario": "highway-fast-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
+    "scenario": "highway-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
+      "weather": "Snow",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "432",
     "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.0
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "433",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "434",
     "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
+      "weather": "Rain",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
@@ -3353,66 +4023,116 @@
     "id": "435",
     "scenario": "highway-fast-v0",
     "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "436",
     "scenario": "highway-v0",
-    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
+      "weather": "Foggy",
+      "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "437",
     "scenario": "highway-v0",
-    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
       "density": 1.5
     }
   },
   {
     "id": "438",
     "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "439",
-    "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "440",
-    "scenario": "highway-fast-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Day",
       "density": 2.0
+    }
+  },
+  {
+    "id": "439",
+    "scenario": "highway-fast-v0",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "440",
+    "scenario": "highway-v0",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
     "id": "441",
     "scenario": "highway-fast-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "442",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "443",
+    "scenario": "highway-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "444",
+    "scenario": "highway-v0",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
@@ -3420,139 +4140,83 @@
     }
   },
   {
-    "id": "442",
-    "scenario": "highway-v0",
-    "instruction": "It is dark. Drive conservatively.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "443",
-    "scenario": "highway-v0",
-    "instruction": "Drive normally.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "444",
-    "scenario": "highway-fast-v0",
-    "instruction": "Take me to the destination.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
     "id": "445",
-    "scenario": "highway-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.5
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "446",
     "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.0
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "447",
-    "scenario": "highway-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 1.5
+      "time_of_day": "Night",
+      "density": 2.0
     }
   },
   {
     "id": "448",
     "scenario": "highway-fast-v0",
     "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "449",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 2.0
     }
   },
   {
     "id": "450",
     "scenario": "highway-fast-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
+      "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 1.5
     }
   },
   {
     "id": "451",
-    "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
-    "environment": {
-      "weather": "Rain",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "452",
     "scenario": "highway-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "453",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Clear",
-      "time_of_day": "Day",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "454",
-    "scenario": "highway-fast-v0",
-    "instruction": "Safety is the priority. Keep speed moderate.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
-    "id": "455",
-    "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Day",
@@ -3560,19 +4224,35 @@
     }
   },
   {
-    "id": "456",
-    "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "id": "452",
+    "scenario": "highway-fast-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Night",
-      "density": 1.0
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.5
     }
   },
   {
-    "id": "457",
+    "id": "453",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 1.5
+    }
+  },
+  {
+    "id": "454",
     "scenario": "highway-v0",
-    "instruction": "Drive normally.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Clear",
       "time_of_day": "Day",
@@ -3580,119 +4260,167 @@
     }
   },
   {
-    "id": "458",
+    "id": "455",
     "scenario": "highway-fast-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "456",
+    "scenario": "highway-fast-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "457",
+    "scenario": "highway-v0",
+    "instruction": "No rush today. Just cruise safely.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "458",
+    "scenario": "highway-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Day",
+      "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
     "id": "459",
     "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Snow",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 2.5
     }
   },
   {
     "id": "460",
-    "scenario": "highway-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is dark. Drive conservatively.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Foggy",
       "time_of_day": "Night",
-      "density": 2.5
+      "density": 1.0
     }
   },
   {
     "id": "461",
     "scenario": "highway-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
+      "weather": "Clear",
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "462",
-    "scenario": "highway-fast-v0",
+    "scenario": "highway-v0",
     "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
+      "weather": "Foggy",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
     "id": "463",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "scenario": "highway-fast-v0",
+    "instruction": "The road is slippery. Slow down significantly.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.0
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "464",
     "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "We need to make up time. Overtake aggressively if possible.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "465",
-    "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
+      "weather": "Rain",
+      "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
-    "id": "466",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "id": "465",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "466",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "467",
-    "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
-      "density": 2.5
+      "time_of_day": "Day",
+      "density": 1.5
     }
   },
   {
     "id": "468",
     "scenario": "highway-fast-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.5
-    }
-  },
-  {
-    "id": "469",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
@@ -3700,121 +4428,157 @@
     }
   },
   {
-    "id": "470",
-    "scenario": "highway-fast-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "id": "469",
+    "scenario": "highway-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
       "density": 1.0
+    }
+  },
+  {
+    "id": "470",
+    "scenario": "highway-v0",
+    "instruction": "Drive aggressively and weave through traffic.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 2.5
     }
   },
   {
     "id": "471",
-    "scenario": "highway-fast-v0",
-    "instruction": "Drive normally.",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.5
     }
   },
   {
     "id": "472",
-    "scenario": "highway-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Night",
       "density": 1.0
     }
   },
   {
     "id": "473",
-    "scenario": "highway-fast-v0",
-    "instruction": "Drive defensively. Watch out for sudden braking.",
+    "scenario": "highway-v0",
+    "instruction": "Drive normally.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 1.5
+      "weather": "Foggy",
+      "time_of_day": "Day",
+      "density": 1.0
     }
   },
   {
     "id": "474",
-    "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 2.5
     }
   },
   {
     "id": "475",
     "scenario": "highway-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
+      "weather": "Foggy",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "476",
     "scenario": "highway-fast-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
+      "weather": "Foggy",
+      "time_of_day": "Night",
       "density": 2.0
     }
   },
   {
     "id": "477",
-    "scenario": "highway-fast-v0",
-    "instruction": "It is raining heavily. Increase following distance.",
+    "scenario": "highway-v0",
+    "instruction": "Safety is the priority. Keep speed moderate.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Rain",
+      "weather": "Snow",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 2.5
     }
   },
   {
     "id": "478",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-fast-v0",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Snow",
       "time_of_day": "Day",
       "density": 2.5
     }
   },
   {
     "id": "479",
-    "scenario": "highway-v0",
-    "instruction": "Just follow the traffic flow.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 2.5
     }
   },
   {
     "id": "480",
-    "scenario": "highway-fast-v0",
-    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "scenario": "highway-v0",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 1.5
+      "density": 1.0
     }
   },
   {
     "id": "481",
     "scenario": "highway-fast-v0",
-    "instruction": "No rush today. Just cruise safely.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Clear",
       "time_of_day": "Day",
       "density": 2.5
     }
@@ -3822,67 +4586,69 @@
   {
     "id": "482",
     "scenario": "highway-fast-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "It looks dangerous out there. Drive carefully.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
-      "time_of_day": "Night",
+      "weather": "Snow",
+      "time_of_day": "Day",
       "density": 1.0
     }
   },
   {
     "id": "483",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Night time driving requires extra focus. Stay safe.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "484",
-    "scenario": "highway-fast-v0",
-    "instruction": "The road is slippery. Slow down significantly.",
-    "environment": {
-      "weather": "Rain",
+      "weather": "Clear",
       "time_of_day": "Night",
       "density": 1.5
     }
   },
   {
-    "id": "485",
+    "id": "484",
     "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
+    "environment": {
+      "weather": "Rain",
+      "time_of_day": "Night",
+      "density": 2.5
+    }
+  },
+  {
+    "id": "485",
+    "scenario": "highway-fast-v0",
+    "instruction": "I am late for a meeting. Drive fast and overtake slower cars.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Clear",
-      "time_of_day": "Night",
+      "time_of_day": "Day",
       "density": 2.0
     }
   },
   {
     "id": "486",
     "scenario": "highway-fast-v0",
-    "instruction": "Step on it! Maximize our speed.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Clear",
       "time_of_day": "Day",
-      "density": 1.0
+      "density": 2.5
     }
   },
   {
     "id": "487",
-    "scenario": "highway-fast-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.0
-    }
-  },
-  {
-    "id": "488",
     "scenario": "highway-v0",
-    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "instruction": "Traffic is moving smoothly. Maintain a high speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Foggy",
       "time_of_day": "Night",
@@ -3890,9 +4656,23 @@
     }
   },
   {
-    "id": "489",
+    "id": "488",
     "scenario": "highway-v0",
-    "instruction": "Drive aggressively and weave through traffic.",
+    "instruction": "Step on it! Maximize our speed.",
+    "intent_category": "aggressive",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Clear",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
+    "id": "489",
+    "scenario": "highway-fast-v0",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
@@ -3902,67 +4682,69 @@
   {
     "id": "490",
     "scenario": "highway-fast-v0",
-    "instruction": "Wet road ahead. Do not make sudden lane changes.",
+    "instruction": "Traffic is heavy. Be patient and do not overtake unnecessarily.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Rain",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "491",
     "scenario": "highway-v0",
-    "instruction": "Stay in this lane for now.",
+    "instruction": "Just follow the traffic flow.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Day",
-      "density": 2.0
+      "density": 1.5
     }
   },
   {
     "id": "492",
     "scenario": "highway-v0",
-    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "instruction": "Take me to the destination.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Day",
-      "density": 2.5
+      "time_of_day": "Night",
+      "density": 1.0
     }
   },
   {
     "id": "493",
-    "scenario": "highway-fast-v0",
-    "instruction": "Visibility is limited. Slow down.",
+    "scenario": "highway-v0",
+    "instruction": "Keep to the middle lane and maintain current speed.",
+    "intent_category": "neutral",
+    "expected_risk": "High (Crash Likely)",
     "environment": {
-      "weather": "Foggy",
+      "weather": "Snow",
       "time_of_day": "Night",
-      "density": 2.0
+      "density": 1.0
     }
   },
   {
     "id": "494",
-    "scenario": "highway-fast-v0",
-    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "scenario": "highway-v0",
+    "instruction": "Maintain a safe distance and stay in the right lane.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
+      "time_of_day": "Day",
+      "density": 2.0
     }
   },
   {
     "id": "495",
-    "scenario": "highway-v0",
-    "instruction": "We need to make up time. Overtake aggressively if possible.",
-    "environment": {
-      "weather": "Snow",
-      "time_of_day": "Night",
-      "density": 2.5
-    }
-  },
-  {
-    "id": "496",
     "scenario": "highway-fast-v0",
-    "instruction": "Don't get stuck behind trucks. Switch lanes and speed up.",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
       "weather": "Snow",
       "time_of_day": "Night",
@@ -3970,33 +4752,51 @@
     }
   },
   {
+    "id": "496",
+    "scenario": "highway-fast-v0",
+    "instruction": "It is raining heavily. Increase following distance.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Snow",
+      "time_of_day": "Night",
+      "density": 1.0
+    }
+  },
+  {
     "id": "497",
     "scenario": "highway-fast-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "instruction": "Visibility is poor due to rain. Drive with extreme caution.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Clear",
+      "weather": "Snow",
+      "time_of_day": "Day",
+      "density": 2.0
+    }
+  },
+  {
+    "id": "498",
+    "scenario": "highway-fast-v0",
+    "instruction": "Visibility is limited. Slow down.",
+    "intent_category": "cautious",
+    "expected_risk": "Low",
+    "environment": {
+      "weather": "Foggy",
       "time_of_day": "Night",
       "density": 2.5
     }
   },
   {
-    "id": "498",
-    "scenario": "highway-v0",
-    "instruction": "Step on it! Maximize our speed.",
-    "environment": {
-      "weather": "Foggy",
-      "time_of_day": "Day",
-      "density": 1.0
-    }
-  },
-  {
     "id": "499",
-    "scenario": "highway-v0",
-    "instruction": "Keep to the middle lane and maintain current speed.",
+    "scenario": "highway-fast-v0",
+    "instruction": "Stay in this lane for now.",
+    "intent_category": "neutral",
+    "expected_risk": "Low",
     "environment": {
-      "weather": "Snow",
+      "weather": "Rain",
       "time_of_day": "Night",
-      "density": 1.0
+      "density": 1.5
     }
   }
 ]

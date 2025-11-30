@@ -35,6 +35,11 @@ def save_evaluation_results(results, filename=REPORT_FILE):
     total = len(results)
     crashes = sum(1 for r in results if r['crashed'])
     successes = total - crashes
+
+    high_risk_runs = [r for r in results if "High" in r.get('expected_risk', '')]
+    high_risk_total = len(high_risk_runs)
+    high_risk_survived = sum(1 for r in high_risk_runs if not r['crashed'])
+
     if total > 0:
         raw_avg = np.mean([r['avg_speed'] for r in results])
         avg_speed = float(raw_avg)
@@ -47,6 +52,8 @@ def save_evaluation_results(results, filename=REPORT_FILE):
         "timestamp": datetime.datetime.now().isoformat(),
         "total_scenarios": total,
         "success_rate": f"{(successes / total) * 100:.1f}%" if total > 0 else "0%",
+        "high_risk_scenarios": high_risk_total,
+        "high_risk_survival_rate": f"{(high_risk_survived / high_risk_total) * 100:.1f}%" if high_risk_total > 0 else "N/A",
         "collision_rate": f"{(crashes / total) * 100:.1f}%" if total > 0 else "0%",
         "average_speed_mps": round(avg_speed, 2),
         "distance_covered_m": round(total_dist, 2),
@@ -64,13 +71,15 @@ def run_single_scenario(scenario_data, video_folder):
     scenario_id = scenario_data['id']
     instruction = scenario_data['instruction']
 
+    expected_risk = scenario_data.get('expected_risk', 'Unknown')
+
     env_params = scenario_data.get('environment', {
         "weather": "Clear",
         "time_of_day": "Day",
         "density": 1.0
     })
 
-    print(f"\n>>> RUNNING SCENARIO {scenario_id}")
+    print(f"\n>>> RUNNING SCENARIO {scenario_id} [{expected_risk} Risk]")
     print(f"    Instruction: {instruction}")
     print(f"    Context: {env_params}")
 
@@ -162,16 +171,18 @@ def run_single_scenario(scenario_data, video_folder):
     result = {
         "id": scenario_id,
         "instruction": instruction,
+        "weather": env_params['weather'],
+        "expected_risk": expected_risk,
         "crashed": crashed,
-        "success": not crashed,  # Success defined as "Did not crash"
-        "avg_speed": round(float(avg_speed), 2),
-        "distance": round(float(distance), 2),
+        "success": not crashed,
         "steps": step_count,
-        "weather": env_params['weather']
+        "avg_speed": round(float(avg_speed), 2),
+        "distance": round(float(distance), 2)
     }
 
     status_icon = "❌" if crashed else "✅"
-    print(f"    {status_icon} Result: Crashed={crashed}, Speed={avg_speed:.1f} m/s")
+    risk_icon = "⚠️" if "High" in expected_risk else "safe"
+    print(f"    {status_icon} Result: Crashed={crashed} | Risk Level: {risk_icon} {expected_risk}")
 
     return result
 
