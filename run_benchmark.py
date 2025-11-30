@@ -13,6 +13,9 @@ from lampilot.envs.adapters import make_lampilot_env
 from lampilot.primitives import LaMPilotPrimitives
 from lampilot.agent import LLMAgent
 
+SAVE_INTERVAL = 5  # Save results every 5 scenarios
+REPORT_FILE = "results/benchmark_report.json"
+
 
 def log_decision_cycle(command, context, lmp_code, filename="talk2drive_log.json"):
     log_entry = {
@@ -25,7 +28,7 @@ def log_decision_cycle(command, context, lmp_code, filename="talk2drive_log.json
         f.write(json.dumps(log_entry) + "\n")
 
 
-def save_evaluation_results(results, filename="results/benchmark_report.json"):
+def save_evaluation_results(results, filename=REPORT_FILE):
     """Saves the final metrics to a JSON file."""
     os.makedirs(os.path.dirname(filename), exist_ok=True)
 
@@ -52,6 +55,7 @@ def save_evaluation_results(results, filename="results/benchmark_report.json"):
 
     with open(filename, "w") as f:
         json.dump(summary, f, indent=4)
+        print(f"    💾 Checkpoint saved to {filename}")
 
     return summary
 
@@ -105,7 +109,8 @@ def run_single_scenario(scenario_data, video_folder):
     except Exception as e:
         print(f"    ❌ Code Compilation Failed: {e}")
         env.close()
-        return {"id": scenario_id, "crashed": True, "error": "Compilation Failed", "avg_speed": 0}
+        return {"id": scenario_id, "crashed": True, "error": "Compilation Failed", "avg_speed": 0, "distance": 0,
+                "steps": 0, "weather": env_params['weather']}
 
     print(f"    🎥 Recording to {video_folder}/scenario_{scenario_id}-episode-0.mp4")
     obs, info = env.reset()
@@ -185,14 +190,42 @@ def main():
         scenarios = json.load(f)
 
     results = []
+    completed_ids = set()
 
-    for scenario in scenarios:
+    # Check if a report already exists
+    if os.path.exists(REPORT_FILE):
+        try:
+            with open(REPORT_FILE, 'r') as f:
+                data = json.load(f)
+                # Load previous results into memory
+                if 'details' in data:
+                    results = data['details']
+                    completed_ids = {r['id'] for r in results}
+                    print(f"🔄 Resuming... Found {len(results)} completed scenarios.")
+        except json.JSONDecodeError:
+            print("⚠️ Warning: Existing report file was corrupted. Starting fresh.")
+
+    # Filter out scenarios that are already done
+    scenarios_to_run = [s for s in scenarios if s['id'] not in completed_ids]
+
+    if not scenarios_to_run:
+        print("✅ All scenarios are already completed!")
+        return
+
+    print(f"🚀 Starting benchmark for {len(scenarios_to_run)} remaining scenarios...")
+
+    for i, scenario in enumerate(scenarios_to_run):
         res = run_single_scenario(scenario, video_folder)
         if res:
             results.append(res)
+
+        # SAVE EVERY 'SAVE_INTERVAL' SCENARIOS
+        if (i + 1) % SAVE_INTERVAL == 0:
+            save_evaluation_results(results, REPORT_FILE)
+
         time.sleep(1)
 
-    summary = save_evaluation_results(results)
+    summary = save_evaluation_results(results, REPORT_FILE)
 
     print("\n" + "=" * 40)
     print("      BENCHMARK FINAL REPORT      ")
@@ -203,7 +236,7 @@ def main():
     print(f"Avg Speed:       {summary['average_speed_mps']} m/s")
     print(f"Distance Covered:  {summary['distance_covered_m']} m")
     print("=" * 40)
-    print(f"Detailed report saved to: results/benchmark_report.json")
+    print(f"Detailed report saved to: {REPORT_FILE}")
 
 
 if __name__ == "__main__":
