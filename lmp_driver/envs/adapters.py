@@ -1,8 +1,8 @@
 import gymnasium as gym
-from lampilot.vehicle import PhysicsVehicle
+from lmp_driver.vehicle import PhysicsVehicle
 
 
-def make_lampilot_env(env_id, density=1.0, time_of_day="Day"):
+def make_lmp_driver_env(env_id, density=1.0, time_of_day="Day"):
     """
     Creates the environment.
     - density: Multiplier for traffic count.

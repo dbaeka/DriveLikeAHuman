@@ -4,7 +4,7 @@ import re
 import dotenv
 from openai import OpenAI
 
-from lampilot.prompts import SYSTEM_PROMPT
+from lmp_driver.prompts import SYSTEM_PROMPT
 
 dotenv.load_dotenv()
 

@@ -9,9 +9,9 @@ from gymnasium.wrappers import RecordVideo
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from lampilot.envs.adapters import make_lampilot_env
-from lampilot.primitives import LaMPilotPrimitives
-from lampilot.agent import LLMAgent
+from lmp_driver.envs.adapters import make_lmp_driver_env
+from lmp_driver.primitives import LLMDriverPrimitives
+from lmp_driver.agent import LLMAgent
 
 SAVE_INTERVAL = 5  # Save results every 5 scenarios
 REPORT_FILE = "results/benchmark_report.json"
@@ -74,7 +74,7 @@ def run_single_scenario(scenario_data, video_folder):
     print(f"    Instruction: {instruction}")
     print(f"    Context: {env_params}")
 
-    env = make_lampilot_env(
+    env = make_lmp_driver_env(
         scenario_data['scenario'],
         density=env_params['density'],
         time_of_day=env_params['time_of_day']
@@ -89,7 +89,7 @@ def run_single_scenario(scenario_data, video_folder):
         disable_logger=True
     )
 
-    primitives = LaMPilotPrimitives(env)
+    primitives = LLMDriverPrimitives(env)
     try:
         agent = LLMAgent(model_name="openai/gpt-oss-20b")
     except ValueError as e:

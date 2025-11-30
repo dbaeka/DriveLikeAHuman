@@ -1,4 +1,4 @@
-class LaMPilotPrimitives:
+class LLMDriverPrimitives:
     def __init__(self, env):
         self.env = env
         self.obs = None
