@@ -22,7 +22,9 @@ class DriverAgent:
             sce: Scenario,
             model_name: str = "openai/gpt-oss-20b",
             verbose: bool = False,
-            is_ollama: bool = False
+            is_ollama: bool = False,
+            weather: str = "sunny",
+            instruction: str = "Drive safely"
     ) -> None:
         self.client = client
         self.model_name = model_name
@@ -30,6 +32,8 @@ class DriverAgent:
         self.verbose = verbose
         self.is_ollama = is_ollama
         self.ch = CustomHandler()
+        self.weather = weather
+        self.instruction = instruction
 
         self.tool_registry = {}
         self.tools_schema = []
@@ -64,7 +68,7 @@ class DriverAgent:
 
     def agentRun(self, last_step_decision: dict):
         print(f'Decision at frame {self.sce.frame} is running ...')
-        print('[green]Driver agent is running (No-LangChain)...[/green]')
+        print('[green]Driver agent is running...[/green]')
         self.ch.memory = []
 
         if last_step_decision and "action_name" in last_step_decision:
@@ -74,7 +78,6 @@ class DriverAgent:
             last_step_action = "Not available"
             last_step_explanation = "Not available"
 
-        # Removed FORMAT_INSTRUCTIONS to prevent ReAct format conflict
         system_prompt = f"""
         {SYSTEM_MESSAGE_PREFIX}
 
@@ -87,16 +90,37 @@ class DriverAgent:
         {SYSTEM_MESSAGE_SUFFIX}
         """
 
-        user_prompt = f"""
-        You, the 'ego' car, are now driving a car on a highway. You have already drive for {self.sce.frame} seconds.
-        The decision you made LAST time step was `{last_step_action}`. Your explanation was `{last_step_explanation}`. 
-        Here is the current scenario: \n ```json\n{self.sce.export2json()}\n```\n. 
-        Please make decision for the `ego` car. Analyze the state, use tools if needed, and output your decision.
+        # SMART UPDATE: Dynamic Prompt Injection based on Benchmarks
+        weather_context = ""
+        if self.weather == "foggy":
+            weather_context = "CONDITION WARNING: Heavy Fog. Visibility is low. Sensor noise is high. Increase safety margins."
+        elif self.weather == "rainy":
+            weather_context = "CONDITION WARNING: Rain. Road friction is low. Braking distance is increased."
 
-        Output format when finished:
+        user_prompt = f"""
+        You are the 'ego' car driving on a highway.
+
+        BENCHMARK CONTEXT:
+        1. Weather Condition: {self.weather.upper()}
+        2. Mission Instruction: "{self.instruction}"
+        3. {weather_context}
+
+        STATE:
+        - Time elapsed: {self.sce.frame} seconds
+        - Last Decision: `{last_step_action}`
+        - Last Explanation: `{last_step_explanation}`
+
+        CURRENT SCENARIO DATA:
+        ```json
+        {self.sce.export2json()}
+        ```
+
+        Please make decision for the `ego` car. Analyze the state, consider the WEATHER and INSTRUCTION, use tools to verify safety, and output your decision.
+
+        Output format:
         Final Answer: 
             "decision":{{"ego car's decision..."}},
-            "expalanations":{{"your explaination..."}}
+            "explanations":{{"your explanation..."}}
         """
 
         messages = [
@@ -112,7 +136,7 @@ class DriverAgent:
                 api_params = {
                     "model": self.model_name,
                     "messages": messages,
-                    "temperature": 0.0
+                    "temperature": 0.1  # Lower temp for stricter adherence to safety instructions
                 }
 
                 # Only add tools if not using Ollama or if Ollama supports it
