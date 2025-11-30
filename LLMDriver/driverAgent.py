@@ -96,26 +96,24 @@ class DriverAgent:
             weather_context = "CONDITION WARNING: Heavy Fog. Visibility is low. Sensor noise is high. Increase safety margins."
         elif self.weather == "rainy":
             weather_context = "CONDITION WARNING: Rain. Road friction is low. Braking distance is increased."
+        elif self.weather == "sunny":
+            weather_context = "CONDITION WARNING: Sunny. Road friction is high. Braking distance is decreased."
+        elif self.weather == "windy":
+            weather_context = "CONDITION WARNING: Windy. Road friction is high. Braking distance is increased."
+        elif self.weather == "snowy":
+            weather_context = "CONDITION WARNING: Snowy. Road friction is low. Braking distance is decreased."
 
         user_prompt = f"""
-        You are the 'ego' car driving on a highway.
-
+        You, the 'ego' car, are now driving a car on a highway. You have already drive for {self.sce.frame} seconds.
+        The decision you made LAST time step was `{last_step_action}`. Your explanation was `{last_step_explanation}`. 
+        Here is the current scenario: \n ```json\n{self.sce.export2json()}\n```\n. 
+        
         BENCHMARK CONTEXT:
         1. Weather Condition: {self.weather.upper()}
         2. Mission Instruction: "{self.instruction}"
         3. {weather_context}
 
-        STATE:
-        - Time elapsed: {self.sce.frame} seconds
-        - Last Decision: `{last_step_action}`
-        - Last Explanation: `{last_step_explanation}`
-
-        CURRENT SCENARIO DATA:
-        ```json
-        {self.sce.export2json()}
-        ```
-
-        Please make decision for the `ego` car. Analyze the state, consider the WEATHER and INSTRUCTION, use tools to verify safety, and output your decision.
+        Please make decision for the `ego` car. Analyze the state, consider the WEATHER and MISSION INSTRUCTION, use tools to verify safety, and output your decision.
 
         Output format:
         Final Answer: 
