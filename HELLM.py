@@ -66,13 +66,13 @@ def create_llm_client(config):
 
 # 1. Configuration
 with open('config.yaml') as f:
-    OPENAI_CONFIG = yaml.load(f, Loader=yaml.FullLoader)
+    CONFIG = yaml.load(f, Loader=yaml.FullLoader)
 
 # 2. Initialize Client
-client, MODEL_NAME = create_llm_client(OPENAI_CONFIG)
+client, MODEL_NAME = create_llm_client(CONFIG)
 
 # 3. Environment Config
-vehicleCount = 15
+vehicleCount = CONFIG.get('SIMULATION', {}).get('VEHICLE_COUNT', 15)
 config = {
     "observation": {
         "type": "Kinematics",
@@ -86,8 +86,8 @@ config = {
         "type": "DiscreteMetaAction",
         "target_speeds": np.linspace(0, 32, 9),
     },
-    "duration": 40,
-    "vehicles_density": 2,
+    "duration": CONFIG.get('SIMULATION', {}).get('DURATION', 40),
+    "vehicles_density": CONFIG.get('SIMULATION', {}).get('VEHICLES_DENSITY', 2),
     "show_trajectories": True,
     "render_agent": True,
 }
@@ -131,7 +131,7 @@ toolModels = [
 ]
 
 # Initialize Agents
-is_ollama = OPENAI_CONFIG.get('LLM_PROVIDER', 'groq').lower() == 'ollama'
+is_ollama = CONFIG.get('LLM_PROVIDER', 'groq').lower() == 'ollama'
 
 DA = DriverAgent(
     client=client,

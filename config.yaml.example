@@ -46,3 +46,7 @@ OLLAMA_MODEL: 'llama3.1:8b'
 # 4. Set LLM_PROVIDER: 'ollama'
 # 5. Run: python HELLM.py
 
+SIMULATION:
+  DURATION: 200  # Number of frames/time steps
+  VEHICLES_DENSITY: 2
+  VEHICLE_COUNT: 15
