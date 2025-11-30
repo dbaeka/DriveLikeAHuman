@@ -1,0 +1,23 @@
+[
+  {
+    "id": "101",
+    "scenario": "highway-fast-v0",
+    "instruction": "The car ahead is moving too slow. Overtake it aggressively.",
+    "difficulty": "Easy",
+    "meta_data": { "density": 1.5 }
+  },
+  {
+    "id": "102",
+    "scenario": "highway-v0",
+    "instruction": "Traffic is heavy. Drive carefully and maintain a safe distance.",
+    "difficulty": "Medium",
+    "meta_data": { "density": 2.0 }
+  },
+  {
+    "id": "103",
+    "scenario": "highway-fast-v0",
+    "instruction": "Just stay in your lane and cruise.",
+    "difficulty": "Easy",
+    "meta_data": { "density": 1.0 }
+  }
+]
