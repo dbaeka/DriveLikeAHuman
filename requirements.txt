@@ -8,4 +8,4 @@ langchain-core
 langchain-groq
 openai
 highway-env
-rich==13.4.2
+rich
