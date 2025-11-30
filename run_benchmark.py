@@ -172,8 +172,7 @@ def run_single_scenario(scenario_data, video_folder):
 
 
 def main():
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    dataset_path = os.path.join(project_root, "dataset", "LaMPilot-Bench.json")
+    dataset_path = os.path.join("dataset", "LaMPilot-Bench.json")
     video_folder = os.path.join("results", "videos")
 
     if not os.path.exists(dataset_path):
