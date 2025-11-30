@@ -8,6 +8,7 @@ import yaml
 from dotenv import load_dotenv
 from gymnasium.wrappers import RecordVideo
 from openai import OpenAI
+import pygame
 
 from LLMDriver.customTools import (
     getAvailableActions,
@@ -259,7 +260,13 @@ try:
 
         # Step Environment
         obs, reward, done, truncated, info = env.step(action_id)
-        env.render()
+        font = pygame.font.SysFont(None, 20)
+        weather_text = font.render(f"Weather: {current_weather}", True, (255, 255, 255))
+        # instruction_text = font.render(f"Instruction: {current_instruction}", True, (255, 255, 255))
+        env.unwrapped.viewer.screen.blit(weather_text, (10, 10))
+        # env.unwrapped.viewer.screen.blit(instruction_text, (10, 35))  # Adjust y-position for second line
+        pygame.display.flip()
+        # env.render()
 
         print(f"Frame {frame}: Action {action_id} | {output.get('action_name', 'Unknown')}")
         frame += 1
