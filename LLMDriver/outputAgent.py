@@ -9,10 +9,11 @@ from scenario.scenario import Scenario
 
 
 class OutputParser:
-    def __init__(self, sce: Scenario, client: OpenAI, model_name: str = "llama3-70b-8192") -> None:
+    def __init__(self, sce: Scenario, client: OpenAI, model_name: str = "llama3-70b-8192", is_ollama: bool = False) -> None:
         self.sce = sce
         self.client = client
         self.model_name = model_name
+        self.is_ollama = is_ollama
 
     def agentRun(self, final_results: dict) -> dict:
         print('[green]Output parser is running...[/green]')
@@ -34,17 +35,29 @@ class OutputParser:
         user_prompt = f"Here is the model output:\n{combined_input}\n\nProvide the JSON response."
 
         try:
-            response = self.client.chat.completions.create(
-                model=self.model_name,
-                messages=[
+            api_params = {
+                "model": self.model_name,
+                "messages": [
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_prompt}
                 ],
-                response_format={"type": "json_object"},  # Groq supports this
-                temperature=0
-            )
+                "temperature": 0
+            }
+
+            # Ollama may not support response_format parameter
+            if not self.is_ollama:
+                api_params["response_format"] = {"type": "json_object"}
+
+            response = self.client.chat.completions.create(**api_params)
 
             content = response.choices[0].message.content
+
+            # Extract JSON from markdown code blocks if present (common with Ollama)
+            if "```json" in content:
+                content = content.split("```json")[1].split("```")[0].strip()
+            elif "```" in content:
+                content = content.split("```")[1].split("```")[0].strip()
+
             self.parseredOutput = json.loads(content)
             self.dataCommit()
             print("[cyan]Parser finished.[/cyan]")
@@ -52,7 +65,11 @@ class OutputParser:
 
         except Exception as e:
             print(f"[red]Parser Error: {e}[/red]")
-            return {}
+            return {
+                "action_id": 1,
+                "action_name": "keep_speed",
+                "explanation": "Error in parsing, defaulting to keep speed"
+            }
 
     def dataCommit(self):
         conn = sqlite3.connect(self.sce.database)

@@ -22,16 +22,54 @@ from LLMDriver.driverAgent import DriverAgent
 from LLMDriver.outputAgent import OutputParser
 from scenario.scenario import Scenario
 
+
+def create_llm_client(config):
+    """
+    Factory function to create the appropriate LLM client based on configuration.
+
+    Args:
+        config: Dictionary with LLM provider configuration
+
+    Returns:
+        tuple: (client, model_name)
+    """
+    provider = config.get('LLM_PROVIDER', 'groq').lower()
+
+    if provider == 'groq':
+        client = OpenAI(
+            base_url="https://api.groq.com/openai/v1",
+            api_key=config.get('GROQ_KEY', '')
+        )
+        model_name = config.get('GROQ_MODEL', 'openai/gpt-oss-20b')
+        print(f"[bold cyan]Using Groq with model: {model_name}[/bold cyan]")
+
+    elif provider == 'openai':
+        client = OpenAI(
+            api_key=config.get('OPENAI_KEY', '')
+        )
+        model_name = config.get('OPENAI_MODEL', 'gpt-4o')
+        print(f"[bold cyan]Using OpenAI with model: {model_name}[/bold cyan]")
+
+    elif provider == 'ollama':
+        client = OpenAI(
+            base_url=config.get('OLLAMA_BASE_URL', 'http://localhost:11434/v1'),
+            api_key='ollama'  # Ollama doesn't require a real API key
+        )
+        model_name = config.get('OLLAMA_MODEL', 'llama3.1:8b')
+        print(f"[bold cyan]Using Ollama with model: {model_name}[/bold cyan]")
+
+    else:
+        raise ValueError(f"Unsupported LLM provider: {provider}. Choose from: groq, openai, ollama")
+
+    return client, model_name
+
+
 # 1. Configuration
 with open('config.yaml') as f:
     OPENAI_CONFIG = yaml.load(f, Loader=yaml.FullLoader)
 
 # 2. Initialize Client
-client = OpenAI(
-    base_url="https://api.groq.com/openai/v1",
-    api_key=OPENAI_CONFIG['GROQ_KEY']
-)
-MODEL_NAME = "openai/gpt-oss-20b"
+client, MODEL_NAME = create_llm_client(OPENAI_CONFIG)
 
 # 3. Environment Config
 vehicleCount = 15
@@ -93,21 +131,25 @@ toolModels = [
 ]
 
 # Initialize Agents
+is_ollama = OPENAI_CONFIG.get('LLM_PROVIDER', 'groq').lower() == 'ollama'
+
 DA = DriverAgent(
     client=client,
     toolModels=toolModels,
     sce=sce,
     model_name=MODEL_NAME,
-    verbose=True
+    verbose=True,
+    is_ollama=is_ollama
 )
 
 outputParser = OutputParser(
     sce=sce,
     client=client,
-    model_name=MODEL_NAME
+    model_name=MODEL_NAME,
+    is_ollama=is_ollama
 )
 
-# 6. Main Loop
+# Main Loop
 output = None
 done = truncated = False
 frame = 0

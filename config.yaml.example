@@ -1,0 +1,48 @@
+# ============================================
+# LLM Provider Configuration
+# ============================================
+# Options: 'groq', 'openai', 'ollama'
+# - groq: Fast cloud-based inference using Groq API
+# - openai: OpenAI GPT models (GPT-4, GPT-3.5, etc.)
+# - ollama: Local inference using Ollama (privacy-first, free)
+LLM_PROVIDER: 'groq'
+
+# ============================================
+# Groq Configuration
+# ============================================
+GROQ_KEY: 'your-groq-api-key-here'
+GROQ_MODEL: 'openai/gpt-oss-20b'
+# Available models:
+# - openai/gpt-oss-120b (Recommended)
+# - openai/gpt-oss-20b (Faster)
+# - mixtral-8x7b-32768 (Good balance)
+# - gemma-7b-it (Alternative)
+
+# ============================================
+# OpenAI Configuration
+# ============================================
+OPENAI_KEY: 'your-openai-api-key-here'
+OPENAI_MODEL: 'gpt-4o'
+# Available models:
+# - gpt-4o (Latest, best reasoning)
+# - gpt-4-turbo (Fast, good quality)
+# - gpt-3.5-turbo (Fast, economical)
+
+# ============================================
+# Ollama Configuration (Local)
+# ============================================
+OLLAMA_BASE_URL: 'http://localhost:11434/v1'
+OLLAMA_MODEL: 'llama3.1:8b'
+# Recommended models (install with: ollama pull <model>):
+# - llama3.1:8b (Recommended - fast, good quality)
+# - llama3.1:70b (Better reasoning, slower)
+# - mistral:7b (Good alternative)
+# - qwen2.5:14b (Good for reasoning)
+#
+# To use Ollama:
+# 1. Install: brew install ollama (or download from ollama.ai)
+# 2. Start server: ollama serve
+# 3. Pull model: ollama pull llama3.1:8b
+# 4. Set LLM_PROVIDER: 'ollama'
+# 5. Run: python HELLM.py
+

@@ -20,13 +20,15 @@ class DriverAgent:
             client: OpenAI,
             toolModels: list,
             sce: Scenario,
-            model_name: str = "llama3-70b-8192",
-            verbose: bool = False
+            model_name: str = "openai/gpt-oss-20b",
+            verbose: bool = False,
+            is_ollama: bool = False
     ) -> None:
         self.client = client
         self.model_name = model_name
         self.sce = sce
         self.verbose = verbose
+        self.is_ollama = is_ollama
         self.ch = CustomHandler()
 
         self.tool_registry = {}
@@ -72,7 +74,6 @@ class DriverAgent:
             last_step_action = "Not available"
             last_step_explanation = "Not available"
 
-        # --- FIX: SIMPLIFIED PROMPT ---
         # Removed FORMAT_INSTRUCTIONS to prevent ReAct format conflict
         system_prompt = f"""
         {SYSTEM_MESSAGE_PREFIX}
@@ -107,13 +108,19 @@ class DriverAgent:
 
         for _ in range(max_steps):
             try:
-                response = self.client.chat.completions.create(
-                    model=self.model_name,
-                    messages=messages,
-                    tools=self.tools_schema,
-                    tool_choice="auto",
-                    temperature=0.0
-                )
+                # Ollama may need slightly different parameters
+                api_params = {
+                    "model": self.model_name,
+                    "messages": messages,
+                    "temperature": 0.0
+                }
+
+                # Only add tools if not using Ollama or if Ollama supports it
+                if not self.is_ollama or self.tools_schema:
+                    api_params["tools"] = self.tools_schema
+                    api_params["tool_choice"] = "auto"
+
+                response = self.client.chat.completions.create(**api_params)
 
                 msg = response.choices[0].message
                 content = msg.content
