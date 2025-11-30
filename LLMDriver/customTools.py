@@ -144,9 +144,11 @@ class getLaneInvolvedCar:
         if leadingCarIdx == -1:
             try:
                 rearingCar = laneVehicles[-1][0]
+                rearing_distance = round(ego.lanePosition - laneVehicles[-1][1], 2)
+                rearing_car_vel = round(self.sce.vehicles[rearingCar].speed, 1)
             except IndexError:
                 return f'There is no car driving on {laneID},  This lane is safe, you donot need to check for any vehicle for safety! you can drive on this lane as fast as you can.'
-            return f"{rearingCar} is driving on {laneID}, and it's driving behind ego car. You need to make sure that your actions do not conflict with each of the vehicles mentioned."
+            return f"{rearingCar} is driving at {rearing_car_vel}m/s on {laneID}, and it's {rearing_distance} meters behind ego car. You MUST check safety with {rearingCar} before changing to this lane."
         elif leadingCarIdx == 0:
             leadingCar = laneVehicles[0][0]
             distance = round(laneVehicles[0][1] - ego.lanePosition, 2)
@@ -155,9 +157,11 @@ class getLaneInvolvedCar:
         else:
             leadingCar = laneVehicles[leadingCarIdx][0]
             rearingCar = laneVehicles[leadingCarIdx - 1][0]
-            distance = round(laneVehicles[leadingCarIdx][1] - ego.lanePosition, 2)
+            leading_distance = round(laneVehicles[leadingCarIdx][1] - ego.lanePosition, 2)
+            rearing_distance = round(ego.lanePosition - laneVehicles[leadingCarIdx - 1][1], 2)
             leading_car_vel = round(self.sce.vehicles[leadingCar].speed, 1)
-            return f"{leadingCar} and {rearingCar} is driving on {laneID}, and {leadingCar} is driving at {leading_car_vel}m/s in front of ego car for {distance} meters, while {rearingCar} is driving behind ego car. You need to make sure that your actions do not conflict with each of the vehicles mentioned."
+            rearing_car_vel = round(self.sce.vehicles[rearingCar].speed, 1)
+            return f"{leadingCar} is driving at {leading_car_vel}m/s on {laneID}, {leading_distance} meters in front of ego car. {rearingCar} is driving at {rearing_car_vel}m/s, {rearing_distance} meters behind ego car. You MUST check safety with BOTH vehicles before changing to this lane."
 
 
 class isChangeLaneConflictWithCar:
@@ -165,6 +169,7 @@ class isChangeLaneConflictWithCar:
         self.sce = sce
         self.TIME_HEAD_WAY = 3.0
         self.VEHICLE_LENGTH = 5.0
+        self.MIN_SAFE_DISTANCE = 10.0  # Minimum safe distance for lane changes
 
     @prompts(name='Is_Change_Lane_Conflict_With_Car',
              description="""useful when you want to know whether change lane to a specific lane is confict with a specific car, ONLY when your decision is change_lane_left or change_lane_right. The input to this tool should be a string of a comma separated string of two, representing the id of the lane you want to change to and the id of the car you want to check.""")
@@ -178,18 +183,36 @@ class isChangeLaneConflictWithCar:
             return "Your input is not a valid vehicle id, make sure you use `Get Lane Involved Car` tool first!"
         veh = self.sce.vehicles[vid]
         ego = self.sce.vehicles['ego']
+
+        # Calculate actual distance between vehicles
         if veh.lanePosition >= ego.lanePosition:
+            # Vehicle is ahead
+            distance = veh.lanePosition - ego.lanePosition - self.VEHICLE_LENGTH
             relativeSpeed = ego.speed - veh.speed
-            if veh.lanePosition - ego.lanePosition - self.VEHICLE_LENGTH > self.TIME_HEAD_WAY * relativeSpeed:
-                return f"change lane to `{laneID}` is safe with `{vid}`."
-            else:
-                return f"change lane to `{laneID}` may be conflict with `{vid}`, which is unacceptable."
+
+            # Check minimum safe distance
+            if distance < self.MIN_SAFE_DISTANCE:
+                return f"change lane to `{laneID}` may be conflict with `{vid}` (only {distance:.1f}m ahead), which is unacceptable."
+
+            # Check time headway for approaching scenarios
+            if relativeSpeed > 0 and distance < self.TIME_HEAD_WAY * relativeSpeed:
+                return f"change lane to `{laneID}` may be conflict with `{vid}` (closing in too fast), which is unacceptable."
+
+            return f"change lane to `{laneID}` is safe with `{vid}` ({distance:.1f}m ahead)."
         else:
+            # Vehicle is behind
+            distance = ego.lanePosition - veh.lanePosition - self.VEHICLE_LENGTH
             relativeSpeed = veh.speed - ego.speed
-            if ego.lanePosition - veh.lanePosition - self.VEHICLE_LENGTH > self.TIME_HEAD_WAY * relativeSpeed:
-                return f"change lane to `{laneID}` is safe with `{vid}`."
-            else:
-                return f"change lane to `{laneID}` may be conflict with `{vid}`, which is unacceptable."
+
+            # CRITICAL: Check minimum safe distance - must have enough space behind
+            if distance < self.MIN_SAFE_DISTANCE:
+                return f"change lane to `{laneID}` may be conflict with `{vid}` (only {distance:.1f}m behind), which is EXTREMELY DANGEROUS and unacceptable."
+
+            # Check if vehicle behind is approaching too fast
+            if relativeSpeed > 0 and distance < self.TIME_HEAD_WAY * relativeSpeed:
+                return f"change lane to `{laneID}` may be conflict with `{vid}` (approaching from behind too fast), which is unacceptable."
+
+            return f"change lane to `{laneID}` is safe with `{vid}` ({distance:.1f}m behind)."
 
 
 class isAccelerationConflictWithCar:

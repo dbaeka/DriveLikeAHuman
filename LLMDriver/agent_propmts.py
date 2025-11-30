@@ -2,7 +2,8 @@
 TRAFFIC_RULES = """
 1. Try to keep a safe distance to the car in front of you.
 2. If there is no safe decision, just slowing down.
-3. DONOT change lane frequently. If you want to change lane, double-check the safety of vehicles on target lane.
+3. CRITICAL: Before ANY lane change, you MUST check BOTH vehicles ahead AND behind in the target lane. A vehicle behind that is too close (< 10 meters) makes the lane change EXTREMELY DANGEROUS and unacceptable.
+4. NEVER change lanes if a vehicle is less than 10 meters behind you in the target lane, regardless of relative speeds.
 """
 
 POSSIBLE_ADD_RULES = """
@@ -16,8 +17,9 @@ DECISION_CAUTIONS = """
 2. You can only use tools mentioned before to help you make decision. DONOT fabricate any other tool name not mentioned.
 3. Remember what tools you have used, DONOT use the same tool repeatedly.
 3. You need to know your available actions and available lanes before you make any decision.
-4. Once you have a decision, you should check the safety with all the vehicles affected by your decision. Once it's safe, stop using tools and output it.
-5. If you verify a decision is unsafe, you should start a new one and verify its safety again from scratch.
+4. Once you have a decision, you should check the safety with ALL vehicles affected by your decision (both ahead AND behind for lane changes). Once it's safe, stop using tools and output it.
+5. For lane change decisions: If the tool reports that ANY vehicle (front or rear) creates a conflict or is too close, that lane change is UNACCEPTABLE. You must choose a different action.
+6. If you verify a decision is unsafe, you should start a new one and verify its safety again from scratch.
 """
 
 SYSTEM_MESSAGE_PREFIX = """You are ChatGPT, a large language model trained by OpenAI. 
