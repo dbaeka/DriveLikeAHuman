@@ -52,20 +52,6 @@ def run_single_scenario(scenario_data, video_folder):
         disable_logger=True
     )
 
-    env.reset()
-    try:
-        ego_vehicle = env.unwrapped.vehicle
-        if hasattr(ego_vehicle, 'set_weather_friction'):
-            ego_vehicle.set_weather_friction(env_params['weather'])
-            print(f"    🌧️ Physics updated: Friction set for {env_params['weather']}")
-
-        if env_params['time_of_day'] == 'Night':
-            print("    🌑 Time updated: Visibility reduced (Night Mode)")
-
-    except AttributeError:
-        pass
-
-
     primitives = LaMPilotPrimitives(env)
     try:
         agent = LLMAgent(model_name="openai/gpt-oss-20b")
@@ -88,12 +74,21 @@ def run_single_scenario(scenario_data, video_folder):
         env.close()
         return False
 
+    print(f"    🎥 Recording to {video_folder}/scenario_{scenario_id}-episode-0.mp4")
     obs, info = env.reset()
+
+    # APPLY PHYSICS NOW (After the car is spawned)
+    try:
+        ego_vehicle = env.unwrapped.vehicle
+        if hasattr(ego_vehicle, 'set_weather_friction'):
+            ego_vehicle.set_weather_friction(env_params['weather'])
+            print(f"    🌧️ Physics Applied: {env_params['weather']}")
+    except AttributeError:
+        pass
+
     done = False
     truncated = False
     step_count = 0
-
-    print(f"    🎥 Recording to {video_folder}/scenario_{scenario_id}.mp4 ...")
 
     while not (done or truncated):
         primitives.update(obs)
