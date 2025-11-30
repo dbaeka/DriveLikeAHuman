@@ -4,7 +4,6 @@ from typing import Any
 
 def prompts(name, description):
     def decorator(func):
-        # Sanitize Name (Replace spaces with underscores)
         func.name = name.replace(" ", "_")
         func.description = description
         return func
@@ -36,9 +35,6 @@ class getAvailableActions:
     @prompts(name='Get_Available_Actions',
              description="""Useful before you make decisions, this tool let you know what are your available actions in this situation. The input to this tool should be 'ego'.""")
     def inference(self, input: str) -> str:
-        # --- FIX: UNWRAP ENVIRONMENT ---
-        # The env is wrapped in RecordVideo, so we must access .unwrapped
-        # to reach the underlying highway-env methods.
         if hasattr(self.env, 'unwrapped'):
             base_env = self.env.unwrapped
         else:
@@ -55,16 +51,6 @@ class getAvailableActions:
         for action in availableActions:
             outputPrefix += ACTIONS_ALL.get(action, 'UNKNOWN') + \
                             '--' + ACTIONS_DESCRIPTION.get(action, '') + '; \n'
-
-        # Strategy Tips
-        if 1 in availableActions:
-            outputPrefix += 'You should check idle action as FIRST priority. '
-        if 0 in availableActions or 2 in availableActions:
-            outputPrefix += 'For change lane action, CAREFULLY CHECK the safety of vehicles on target lane. '
-        if 3 in availableActions:
-            outputPrefix += 'Consider acceleration action carefully. '
-        if 4 in availableActions:
-            outputPrefix += 'The deceleration action is LAST priority. '
 
         outputPrefix += """\nTo check decision safety you should follow steps:
         Step 1: Get the vehicles in this lane that you may affect. Acceleration, deceleration and idle action affect the current lane, while left and right lane changes affect the corresponding lane.
