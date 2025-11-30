@@ -42,7 +42,8 @@ def run_single_scenario(scenario_data):
 
     env = make_lampilot_env(
         scenario_data['scenario'],
-        density=env_params['density']
+        density=env_params['density'],
+        time_of_day=env_params['time_of_day']
     )
 
     env.reset()
@@ -51,6 +52,10 @@ def run_single_scenario(scenario_data):
         if hasattr(ego_vehicle, 'set_weather_friction'):
             ego_vehicle.set_weather_friction(env_params['weather'])
             print(f"    🌧️ Physics updated: Friction set for {env_params['weather']}")
+
+        if env_params['time_of_day'] == 'Night':
+            print("    🌑 Time updated: Visibility reduced (Night Mode)")
+
     except AttributeError:
         print("    PhysicsVehicle not found. Using standard physics.")
 
