@@ -3,7 +3,6 @@ import os
 
 import gymnasium as gym
 import numpy as np
-import highway_env
 import yaml
 from dotenv import load_dotenv
 from gymnasium.wrappers import RecordVideo
@@ -106,6 +105,7 @@ def create_llm_client(config):
 
     return client, model_name
 
+
 def apply_weather_physics(env, weather):
     obs_noise = 0.0
     if weather == "foggy":
@@ -140,7 +140,7 @@ config = {
         "target_speeds": np.linspace(0, 32, 9),
     },
     "duration": CONFIG.get('SIMULATION', {}).get('DURATION', 100),
-     "vehicles_density": CONFIG.get('SIMULATION', {}).get('VEHICLES_DENSITY', 2),
+    "vehicles_density": CONFIG.get('SIMULATION', {}).get('VEHICLES_DENSITY', 2),
     "render_agent": True,
     "show_trajectories": True,
 }

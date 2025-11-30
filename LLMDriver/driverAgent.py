@@ -134,7 +134,7 @@ class DriverAgent:
                 api_params = {
                     "model": self.model_name,
                     "messages": messages,
-                    "temperature": 0.1  # Lower temp for stricter adherence to safety instructions
+                    "temperature": 0.0
                 }
 
                 # Only add tools if not using Ollama or if Ollama supports it
