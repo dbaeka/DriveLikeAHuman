@@ -16,9 +16,13 @@ class OutputParser:
         self.is_ollama = is_ollama
 
     def agentRun(self, final_results: dict) -> dict:
-        print('[green]Output parser is running...[/green]')
+        print('\n[green]Output parser is running...[/green]')
+        print(f"[DEBUG] === OUTPUT PARSER INPUT ===")
+        print(f"[DEBUG] Answer keys: {final_results.keys()}")
 
         combined_input = f"{final_results.get('answer', '')} {final_results.get('thoughts', '')}"
+        print(f"[DEBUG] Combined input length: {len(combined_input)}")
+        print(f"[DEBUG] Combined input preview: {combined_input[:300]}...")
 
         system_prompt = """
         You are a JSON formatting assistant.
@@ -66,15 +70,26 @@ class OutputParser:
                 content = content.split("```")[1].split("```")[0].strip()
 
             self.parseredOutput = json.loads(content)
+
+            print(f"\n[DEBUG] === PARSED OUTPUT ===")
+            print(f"[DEBUG] Action ID: {self.parseredOutput.get('action_id')}")
+            print(f"[DEBUG] Action Name: {self.parseredOutput.get('action_name')}")
+            print(f"[DEBUG] Explanation: {self.parseredOutput.get('explanation', '')[:150]}...")
+
             self.dataCommit()
             print("[cyan]Parser finished.[/cyan]")
             return self.parseredOutput
 
         except Exception as e:
-            print(f"[red]Parser Error: {e}[/red]")
+            print(f"\n[red]{'='*80}[/red]")
+            print(f"[red]PARSER ERROR: {e}[/red]")
+            print(f"[red]{'='*80}[/red]")
             print(f"[yellow]Raw model output that failed to parse:[/yellow]")
             print(f"[yellow]{combined_input[:500]}...[/yellow]")
             print(f"[red]⚠️  DEFAULTING TO KEEP_SPEED DUE TO PARSER ERROR![/red]")
+            print(f"[DEBUG] Error type: {type(e).__name__}")
+            print(f"[DEBUG] Error details: {str(e)}")
+
             return {
                 "action_id": 1,
                 "action_name": "keep_speed",

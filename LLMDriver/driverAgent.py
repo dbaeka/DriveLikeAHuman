@@ -67,8 +67,50 @@ class DriverAgent:
             })
 
     def agentRun(self, last_step_decision: dict):
-        print(f'Decision at frame {self.sce.frame} is running ...')
-        print('[green]Driver agent is running...[/green]')
+        print(f'\n{"#" * 100}')
+        print(f'# FRAME {self.sce.frame} - DECISION MAKING START')
+        print(f'{"#" * 100}')
+        print(f'[green]Driver agent is running...[/green]')
+
+        # Print all vehicles on screen
+        print(f"\n[DEBUG] === ALL VEHICLES ON SCREEN ===")
+        ego = self.sce.vehicles.get('ego')
+        if ego:
+            print(f"[DEBUG] EGO: lane={ego.lane_id}, pos={ego.lanePosition:.2f}m, speed={ego.speed:.2f}m/s")
+
+        # Group vehicles by lane for better visualization
+        lanes = {'lane_0': [], 'lane_1': [], 'lane_2': [], 'lane_3': []}
+        for vid, veh in self.sce.vehicles.items():
+            if vid != 'ego':
+                distance_to_ego = veh.lanePosition - ego.lanePosition if ego else 0
+
+                # BUG FIX: Handle undefined lanes gracefully to prevent crash
+                if veh.lane_id in lanes:
+                    lanes[veh.lane_id].append((vid, veh.lanePosition, veh.speed, distance_to_ego))
+                else:
+                    print(
+                        f"[DEBUG] WARNING: Vehicle {vid} is in unknown lane '{veh.lane_id}' - Skipping visualization.")
+
+                # Fix the display logic
+                if distance_to_ego < 0:
+                    pos_text = f"AHEAD by {abs(distance_to_ego):.2f}m"
+                else:
+                    pos_text = f"BEHIND by {distance_to_ego:.2f}m"
+                print(
+                    f"[DEBUG] {vid}: lane={veh.lane_id}, pos={veh.lanePosition:.2f}m, speed={veh.speed:.2f}m/s, {pos_text}")
+
+        # Print lane summaries
+        print(f"\n[DEBUG] === LANE SUMMARIES ===")
+        for lane_id, vehicles in lanes.items():
+            if vehicles:
+                print(f"[DEBUG] {lane_id}: {len(vehicles)} vehicles")
+                vehicles.sort(key=lambda x: x[1])  # Sort by position
+                for v in vehicles:
+                    relative_pos = "AHEAD" if v[3] < 0 else "BEHIND"
+                    print(f"[DEBUG]   - {v[0]}: {relative_pos} by {abs(v[3]):.2f}m, speed={v[2]:.2f}m/s")
+            else:
+                print(f"[DEBUG] {lane_id}: EMPTY")
+
         self.ch.memory = []
 
         if last_step_decision and "action_name" in last_step_decision:
@@ -77,6 +119,11 @@ class DriverAgent:
         else:
             last_step_action = "Not available"
             last_step_explanation = "Not available"
+
+        print(f"\n[DEBUG] === LAST STEP INFO ===")
+        print(f"[DEBUG] Last action: {last_step_action}")
+        print(f"[DEBUG] Last explanation: {last_step_explanation[:100]}..." if len(
+            last_step_explanation) > 100 else f"[DEBUG] Last explanation: {last_step_explanation}")
 
         system_prompt = f"""
         {SYSTEM_MESSAGE_PREFIX}
@@ -89,6 +136,10 @@ class DriverAgent:
 
         {SYSTEM_MESSAGE_SUFFIX}
         """
+
+        print(f"\n[DEBUG] === MISSION CONTEXT ===")
+        print(f"[DEBUG] Weather: {self.weather}")
+        print(f"[DEBUG] Mission instruction: {self.instruction}")
 
         # SMART UPDATE: Dynamic Prompt Injection based on Benchmarks
         weather_context = ""
@@ -113,17 +164,17 @@ class DriverAgent:
         You, the 'ego' car, are now driving a car on a highway. You have already drive for {self.sce.frame} seconds.
         The decision you made LAST time step was `{last_step_action}`. Your explanation was `{last_step_explanation}`. 
         Here is the current scenario: \n ```json\n{self.sce.export2json()}\n```\n. 
-        
+
         ========================================
         ENVIRONMENTAL CONTEXT:
         Weather Condition: {self.weather.upper()}
         Condition Details: {weather_context}
         Safety Adjustment Required: {safety_adjustment}
         ========================================
-        
+
         DRIVING STYLE PREFERENCE (Secondary to Safety):
         "{self.instruction}"
-        
+
         IMPORTANT: The driving style preference is a SUGGESTION for how to drive WHEN IT IS SAFE to do so. 
         It does NOT override safety rules. If the style conflicts with safety, ALWAYS choose safety.
         For example:
@@ -133,7 +184,7 @@ class DriverAgent:
         ========================================
 
         Please make decision for the `ego` car using the following MANDATORY steps:
-        
+
         Step 1: Analyze the current state and weather conditions
         Step 2: Use Get_Available_Actions to know what actions are possible
         Step 3: For EACH action you are considering:
@@ -142,7 +193,7 @@ class DriverAgent:
                 c) Only if ALL safety checks pass, the action is safe
         Step 4: Choose an action that is SAFE first, and matches the driving style second
         Step 5: Output your decision with clear explanation
-        
+
         CRITICAL REMINDER: You CANNOT assume there are no vehicles. You MUST use Get_Lane_Involved_Car first. 
         If you skip this step and cause a collision, you have failed your primary objective.
 
@@ -178,13 +229,13 @@ class DriverAgent:
                 except Exception as api_error:
                     error_msg = str(api_error)
 
-                    # If the error is about invalid tool names, try without tools
                     if "tool_use_failed" in error_msg or "validation failed" in error_msg:
-                        print(f"[yellow]Tool call validation failed. Model may not support tool calling properly.[/yellow]")
+                        print(
+                            f"[yellow]Tool call validation failed. Model may not support tool calling properly.[/yellow]")
                         print(f"[yellow]Error: {error_msg}[/yellow]")
-                        print(f"[red]RECOMMENDATION: Switch to a model with better tool support (e.g., gpt-4o, llama-3.1-70b-versatile)[/red]")
+                        print(
+                            f"[red]RECOMMENDATION: Switch to a model with better tool support (e.g., gpt-4o, llama-3.1-70b-versatile)[/red]")
 
-                        # Fallback: try without tools and ask the model to respond in text
                         fallback_message = messages[-1]["content"] if messages else user_prompt
                         fallback_message += "\n\nIMPORTANT: Your model does not support tool calling. Please provide your decision directly in the format:\nFinal Answer:\n\"decision\": {{action}},\n\"explanations\": {{explanation}}"
 
@@ -196,7 +247,6 @@ class DriverAgent:
                             temperature=0.0
                         )
                     else:
-                        # Re-raise if it's a different error
                         raise
 
                 msg = response.choices[0].message
@@ -212,15 +262,11 @@ class DriverAgent:
                     messages.append(msg)
 
                     for tool_call in tool_calls:
-                        # ROBUST SANITIZATION: Handle models that add extra tokens
                         raw_func_name = tool_call.function.name
+                        func_name = raw_func_name.split('<|')[0]
+                        func_name = func_name.split('|')[0]
+                        func_name = func_name.strip()
 
-                        # Remove common LLM artifacts and special tokens
-                        func_name = raw_func_name.split('<|')[0]  # Remove <|channel|>, <|endoftext|>, etc.
-                        func_name = func_name.split('|')[0]  # Remove any pipe-based tokens
-                        func_name = func_name.strip()  # Remove whitespace
-
-                        # Log the sanitization if it occurred
                         if raw_func_name != func_name:
                             print(f"[yellow]Sanitized tool name: '{raw_func_name}' -> '{func_name}'[/yellow]")
 
@@ -228,21 +274,22 @@ class DriverAgent:
 
                         self.ch.log_tool_call(func_name, str(func_args))
 
+                        print(f"\n[DEBUG] >>> TOOL CALL: {func_name}")
+                        print(f"[DEBUG] >>> Arguments: {func_args}")
+
                         if func_name in self.tool_registry:
                             tool_func = self.tool_registry[func_name]
                             try:
-                                # Safe extraction of 'query' or default to first arg
                                 arg_val = func_args.get("query")
                                 if arg_val is None and len(func_args) > 0:
-                                    # Fallback if model used a different key name like 'input' or 'action_input'
                                     arg_val = list(func_args.values())[0]
 
                                 tool_result = tool_func(str(arg_val))
                             except Exception as e:
                                 tool_result = f"Error executing tool: {e}"
                         else:
-                            # Fuzzy match: try to find a close match in the registry
-                            possible_matches = [k for k in self.tool_registry.keys() if k.lower() in func_name.lower() or func_name.lower() in k.lower()]
+                            possible_matches = [k for k in self.tool_registry.keys() if
+                                                k.lower() in func_name.lower() or func_name.lower() in k.lower()]
                             if possible_matches:
                                 matched_name = possible_matches[0]
                                 print(f"[yellow]Fuzzy matched '{func_name}' to '{matched_name}'[/yellow]")
@@ -258,6 +305,8 @@ class DriverAgent:
                             else:
                                 tool_result = f"Error: Tool '{func_name}' not found. Available tools: {list(self.tool_registry.keys())}"
 
+                        print(f"[DEBUG] >>> TOOL RESULT: {tool_result[:200]}..." if len(
+                            str(tool_result)) > 200 else f"[DEBUG] >>> TOOL RESULT: {tool_result}")
                         self.ch.log_observation(str(tool_result))
 
                         messages.append({
@@ -273,9 +322,12 @@ class DriverAgent:
                 print(f"[red]Error in Agent Loop: {e}[/red]")
                 break
 
-        print('[cyan]Final decision reached.[/cyan]')
+        print('\n[cyan]Final decision reached.[/cyan]')
         if self.ch.memory:
-            print(self.ch.memory[-1])
+            print(f"\n[DEBUG] === FINAL DECISION ===")
+            final_output = self.ch.memory[-1]
+            print(final_output)
+            print(f"[DEBUG] Raw final answer length: {len(str(final_output))}")
             self.dataCommit()
 
     def exportThoughts(self):

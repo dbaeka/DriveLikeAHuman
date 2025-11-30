@@ -12,6 +12,7 @@ from LLMDriver.customTools import (
     getAvailableActions, getAvailableLanes, getLaneInvolvedCar,
     isChangeLaneConflictWithCar, isAccelerationConflictWithCar,
     isKeepSpeedConflictWithCar, isDecelerationSafe, isActionSafe,
+    isEmptyLaneChangeSafe,
 )
 from LLMDriver.driverAgent import DriverAgent
 from LLMDriver.outputAgent import OutputParser
@@ -158,6 +159,7 @@ toolModels = [
     getAvailableActions(env), getAvailableLanes(sce), getLaneInvolvedCar(sce),
     isChangeLaneConflictWithCar(sce), isAccelerationConflictWithCar(sce),
     isKeepSpeedConflictWithCar(sce), isDecelerationSafe(sce), isActionSafe(),
+    isEmptyLaneChangeSafe(sce),
 ]
 
 DA = DriverAgent(
@@ -182,6 +184,10 @@ print(f"Edit [bold]mission_control.json[/bold] and set [bold]\"CONFIRM_UPDATE\":
 
 try:
     while not (done or truncated):
+        print(f"\n{'*'*100}")
+        print(f"* SIMULATION FRAME {frame}")
+        print(f"{'*'*100}")
+
         # CHECK FOR UPDATES
         new_weather, new_instruction, changed = get_dynamic_config(current_weather, current_instruction)
 
@@ -209,12 +215,35 @@ try:
             except:
                 action_id = 1
 
+        print(f"\n[DEBUG] === EXECUTING ACTION ===")
+        print(f"[DEBUG] Action ID: {action_id}")
+        print(f"[DEBUG] Action Name: {output.get('action_name', 'Unknown')}")
+
         obs, reward, done, truncated, info = env.step(action_id)
         env.render()
 
-        print(f"Frame {frame}: {output.get('action_name', 'Unknown')}")
+        print(f"\n[DEBUG] === ENVIRONMENT STEP RESULT ===")
+        print(f"[DEBUG] Reward: {reward:.4f}")
+        print(f"[DEBUG] Done: {done}, Truncated: {truncated}")
+
+        # Check for collision
+        if hasattr(env.unwrapped, 'vehicle'):
+            ego_vehicle = env.unwrapped.vehicle
+            if hasattr(ego_vehicle, 'crashed'):
+                crashed = ego_vehicle.crashed
+                print(f"[DEBUG] Crashed status: {crashed}")
+                if crashed:
+                    print(f"\n[red]{'!'*100}[/red]")
+                    print(f"[red]!!! COLLISION DETECTED AT FRAME {frame} !!![/red]")
+                    print(f"[red]!!! Action taken: {output.get('action_name', 'Unknown')} (ID: {action_id}) !!![/red]")
+                    print(f"[red]{'!'*100}[/red]")
+
+        print(f"\n[bold]Frame {frame}: {output.get('action_name', 'Unknown')}[/bold]")
         frame += 1
 
 finally:
+    print(f"\n{'='*100}")
+    print(f"[bold red]Simulation Ended[/bold red]")
+    print(f"[DEBUG] Total frames executed: {frame}")
+    print(f"{'='*100}\n")
     env.close()
-    print("[bold red]Simulation Ended[/bold red]")
