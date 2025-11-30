@@ -4,7 +4,8 @@ from typing import Any
 
 def prompts(name, description):
     def decorator(func):
-        func.name = name
+        # Sanitize Name (Replace spaces with underscores)
+        func.name = name.replace(" ", "_")
         func.description = description
         return func
 
@@ -32,14 +33,30 @@ class getAvailableActions:
     def __init__(self, env: Any) -> None:
         self.env = env
 
-    @prompts(name='Get Available Actions',
+    @prompts(name='Get_Available_Actions',
              description="""Useful before you make decisions, this tool let you know what are your available actions in this situation. The input to this tool should be 'ego'.""")
     def inference(self, input: str) -> str:
+        # --- FIX: UNWRAP ENVIRONMENT ---
+        # The env is wrapped in RecordVideo, so we must access .unwrapped
+        # to reach the underlying highway-env methods.
+        if hasattr(self.env, 'unwrapped'):
+            base_env = self.env.unwrapped
+        else:
+            base_env = self.env
+
+        # specific check for highway-env method
+        if hasattr(base_env, 'get_available_actions'):
+            availableActions = base_env.get_available_actions()
+        else:
+            # Fallback for safety
+            return "Error: Could not retrieve available actions from environment."
+
         outputPrefix = 'You can ONLY use one of the following actions: \n'
-        availableActions = self.env.get_available_actions()
         for action in availableActions:
-            outputPrefix += ACTIONS_ALL[action] + \
-                '--' + ACTIONS_DESCRIPTION[action] + '; \n'
+            outputPrefix += ACTIONS_ALL.get(action, 'UNKNOWN') + \
+                            '--' + ACTIONS_DESCRIPTION.get(action, '') + '; \n'
+
+        # Strategy Tips
         if 1 in availableActions:
             outputPrefix += 'You should check idle action as FIRST priority. '
         if 0 in availableActions or 2 in availableActions:
@@ -48,6 +65,7 @@ class getAvailableActions:
             outputPrefix += 'Consider acceleration action carefully. '
         if 4 in availableActions:
             outputPrefix += 'The deceleration action is LAST priority. '
+
         outputPrefix += """\nTo check decision safety you should follow steps:
         Step 1: Get the vehicles in this lane that you may affect. Acceleration, deceleration and idle action affect the current lane, while left and right lane changes affect the corresponding lane.
         Step 2: If there are vehicles, check safety between ego and all vehicles in the action lane ONE by ONE.
@@ -60,9 +78,7 @@ class isActionSafe:
     def __init__(self) -> None:
         pass
 
-    # @prompts(name='Check Action Safety',
-    #          description="""Use this tool when you want to check the proposed action's safety. The input to this tool should be a string, which is ONLY the action name.""")
-    @prompts(name='Decision-making Instructions',
+    @prompts(name='Decision_making_Instructions',
              description="""This tool gives you a brief intruduction about how to ensure that the action you make is safe. The input to this tool should be a string, which is ONLY the action name.""")
     def inference(self, action: str) -> str:
         return f"""To check action safety you should follow three steps:
@@ -77,11 +93,19 @@ class getAvailableLanes:
     def __init__(self, sce: Scenario) -> None:
         self.sce = sce
 
-    @prompts(name='Get Available Lanes',
+    @prompts(name='Get_Available_Lanes',
              description="""useful when you want to know the available lanes of the vehicles. like: I want to know the available lanes of the vehicle `ego`. The input to this tool should be a string, representing the id of the vehicle.""")
     def inference(self, vid: str) -> str:
+        if vid not in self.sce.vehicles:
+            return f"Vehicle {vid} not found."
+
         veh = self.sce.vehicles[vid]
         currentLaneID = veh.lane_id
+
+        # Safety check for lane existence
+        if currentLaneID not in self.sce.lanes:
+            return f"Vehicle {vid} is on an unknown lane {currentLaneID}."
+
         laneIdx = self.sce.lanes[currentLaneID].laneIdx
         if laneIdx == 3:
             leftLane = 'lane_2'
@@ -90,8 +114,8 @@ class getAvailableLanes:
             rightLane = 'lane_1'
             return f"""The availabel lane of `{vid}` is `{currentLaneID}` and `{rightLane}`. `{currentLaneID}` is the current lane. `{rightLane}` is to the right of the current lane."""
         else:
-            leftLane = 'lane_' + str(laneIdx-1)
-            rightLane = 'lane_' + str(laneIdx+1)
+            leftLane = 'lane_' + str(laneIdx - 1)
+            rightLane = 'lane_' + str(laneIdx + 1)
             return f"""The availabel lane of `{vid}` is `{currentLaneID}`, `{rightLane}` and {leftLane}. `{currentLaneID}` is the current lane. `{rightLane}` is to the right of the current lane. `{leftLane}` is to the left of the current lane."""
 
 
@@ -99,7 +123,7 @@ class getLaneInvolvedCar:
     def __init__(self, sce: Scenario) -> None:
         self.sce = sce
 
-    @prompts(name='Get Lane Involved Car',
+    @prompts(name='Get_Lane_Involved_Car',
              description="""useful whent want to know the cars may affect your action in the certain lane. Make sure you have use tool `Get Available Lanes` first. The input is a string, representing the id of the specific lane you want to drive on, DONNOT input multiple lane_id once.""")
     def inference(self, laneID: str) -> str:
         if laneID not in {'lane_0', 'lane_1', 'lane_2', 'lane_3'}:
@@ -126,13 +150,13 @@ class getLaneInvolvedCar:
         elif leadingCarIdx == 0:
             leadingCar = laneVehicles[0][0]
             distance = round(laneVehicles[0][1] - ego.lanePosition, 2)
-            leading_car_vel = round(self.sce.vehicles[leadingCar].speed,1)
+            leading_car_vel = round(self.sce.vehicles[leadingCar].speed, 1)
             return f"{leadingCar} is driving at {leading_car_vel}m/s on {laneID}, and it's driving in front of ego car for {distance} meters. You need to make sure that your actions do not conflict with each of the vehicles mentioned."
         else:
             leadingCar = laneVehicles[leadingCarIdx][0]
-            rearingCar = laneVehicles[leadingCarIdx-1][0]
+            rearingCar = laneVehicles[leadingCarIdx - 1][0]
             distance = round(laneVehicles[leadingCarIdx][1] - ego.lanePosition, 2)
-            leading_car_vel = round(self.sce.vehicles[leadingCar].speed,1)
+            leading_car_vel = round(self.sce.vehicles[leadingCar].speed, 1)
             return f"{leadingCar} and {rearingCar} is driving on {laneID}, and {leadingCar} is driving at {leading_car_vel}m/s in front of ego car for {distance} meters, while {rearingCar} is driving behind ego car. You need to make sure that your actions do not conflict with each of the vehicles mentioned."
 
 
@@ -142,10 +166,14 @@ class isChangeLaneConflictWithCar:
         self.TIME_HEAD_WAY = 3.0
         self.VEHICLE_LENGTH = 5.0
 
-    @prompts(name='Is Change Lane Confict With Car',
+    @prompts(name='Is_Change_Lane_Conflict_With_Car',
              description="""useful when you want to know whether change lane to a specific lane is confict with a specific car, ONLY when your decision is change_lane_left or change_lane_right. The input to this tool should be a string of a comma separated string of two, representing the id of the lane you want to change to and the id of the car you want to check.""")
     def inference(self, inputs: str) -> str:
-        laneID, vid = inputs.replace(' ', '').split(',')
+        try:
+            laneID, vid = inputs.replace(' ', '').split(',')
+        except ValueError:
+            return "Input Error: Please provide laneID and vid separated by comma."
+
         if vid not in self.sce.vehicles:
             return "Your input is not a valid vehicle id, make sure you use `Get Lane Involved Car` tool first!"
         veh = self.sce.vehicles[vid]
@@ -171,7 +199,7 @@ class isAccelerationConflictWithCar:
         self.VEHICLE_LENGTH = 5.0
         self.acceleration = 4.0
 
-    @prompts(name='Is Acceleration Conflict With Car',
+    @prompts(name='Is_Acceleration_Conflict_With_Car',
              description="""useful when you want to know whether acceleration is safe with a specific car, ONLY when your decision is accelerate. The input to this tool should be a string, representing the id of the car you want to check.""")
     def inference(self, vid: str) -> str:
         if vid not in self.sce.vehicles:
@@ -202,7 +230,7 @@ class isKeepSpeedConflictWithCar:
         self.TIME_HEAD_WAY = 5.0
         self.VEHICLE_LENGTH = 5.0
 
-    @prompts(name='Is Keep Speed Conflict With Car',
+    @prompts(name='Is_Keep_Speed_Conflict_With_Car',
              description="""useful when you want to know whether keep speed is safe with a specific car, ONLY when your decision is keep_speed. The input to this tool should be a string, representing the id of the car you want to check.""")
     def inference(self, vid: str) -> str:
         if vid not in self.sce.vehicles:
@@ -234,7 +262,7 @@ class isDecelerationSafe:
         self.VEHICLE_LENGTH = 5.0
         self.deceleration = 3.0
 
-    @prompts(name='Is Deceleration Safe',
+    @prompts(name='Is_Deceleration_Safe',
              description="""useful when you want to know whether deceleration is safe, ONLY when your decision is decelerate.The input to this tool should be a string, representing the id of the car you want to check.""")
     def inference(self, vid: str) -> str:
         if vid not in self.sce.vehicles:

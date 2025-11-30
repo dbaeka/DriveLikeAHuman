@@ -1,13 +1,13 @@
 import os
-import yaml
-import numpy as np
-import gymnasium as gym
-from gymnasium.wrappers import RecordVideo
-from langchain.chat_models import AzureChatOpenAI, ChatOpenAI
 
-from scenario.scenario import Scenario
-from LLMDriver.driverAgent import DriverAgent
-from LLMDriver.outputAgent import OutputParser
+import gymnasium as gym
+import numpy as np
+import highway_env
+import yaml
+from gymnasium.wrappers import RecordVideo
+from openai import OpenAI
+
+# Custom Tools
 from LLMDriver.customTools import (
     getAvailableActions,
     getAvailableLanes,
@@ -18,34 +18,23 @@ from LLMDriver.customTools import (
     isDecelerationSafe,
     isActionSafe,
 )
+from LLMDriver.driverAgent import DriverAgent
+from LLMDriver.outputAgent import OutputParser
+from scenario.scenario import Scenario
 
-OPENAI_CONFIG = yaml.load(open('config.yaml'), Loader=yaml.FullLoader)
+# 1. Configuration
+with open('config.yaml') as f:
+    OPENAI_CONFIG = yaml.load(f, Loader=yaml.FullLoader)
 
-if OPENAI_CONFIG['OPENAI_API_TYPE'] == 'azure':
-    os.environ["OPENAI_API_TYPE"] = OPENAI_CONFIG['OPENAI_API_TYPE']
-    os.environ["OPENAI_API_VERSION"] = OPENAI_CONFIG['AZURE_API_VERSION']
-    os.environ["OPENAI_API_BASE"] = OPENAI_CONFIG['AZURE_API_BASE']
-    os.environ["OPENAI_API_KEY"] = OPENAI_CONFIG['AZURE_API_KEY']
-    llm = AzureChatOpenAI(
-        deployment_name=OPENAI_CONFIG['AZURE_MODEL'],
-        temperature=0,
-        max_tokens=1024,
-        request_timeout=60
-    )
-elif OPENAI_CONFIG['OPENAI_API_TYPE'] == 'openai':
-    os.environ["OPENAI_API_KEY"] = OPENAI_CONFIG['OPENAI_KEY']
-    llm = ChatOpenAI(
-        temperature=0,
-        model_name='gpt-3.5-turbo-1106', # or any other model with 8k+ context
-        max_tokens=1024,
-        request_timeout=60
-    )
+# 2. Initialize Client
+client = OpenAI(
+    base_url="https://api.groq.com/openai/v1",
+    api_key=OPENAI_CONFIG['GROQ_KEY']
+)
+MODEL_NAME = "openai/gpt-oss-20b"
 
-
-# base setting
+# 3. Environment Config
 vehicleCount = 15
-
-# environment setting
 config = {
     "observation": {
         "type": "Kinematics",
@@ -65,22 +54,33 @@ config = {
     "render_agent": True,
 }
 
-
+# 4. Setup Environment
 env = gym.make('highway-v0', render_mode="rgb_array")
-env.configure(config)
-env = RecordVideo(
-    env, './results-video',
-    name_prefix=f"highwayv0"
-)
-env.unwrapped.set_record_video_wrapper(env)
-obs, info = env.reset()
-env.render()
 
-# scenario and driver agent setting
+# --- FIX: Use .unwrapped to access custom configure method ---
+env.unwrapped.configure(config)
+# -------------------------------------------------------------
+
+# Setup Video Recording
+if not os.path.exists('./results-video'):
+    os.makedirs('./results-video')
+
+env = RecordVideo(
+    env,
+    './results-video',
+    name_prefix="highwayv0",
+    disable_logger=True
+)
+
+obs, info = env.reset()
+
+# 5. Scenario and Agent Setup
 if not os.path.exists('results-db/'):
     os.mkdir('results-db')
 database = f"results-db/highwayv0.db"
 sce = Scenario(vehicleCount, database)
+
+# Initialize Tools
 toolModels = [
     getAvailableActions(env),
     getAvailableLanes(sce),
@@ -91,21 +91,60 @@ toolModels = [
     isDecelerationSafe(sce),
     isActionSafe(),
 ]
-DA = DriverAgent(llm, toolModels, sce, verbose=True)
-outputParser = OutputParser(sce, llm)
+
+# Initialize Agents
+DA = DriverAgent(
+    client=client,
+    toolModels=toolModels,
+    sce=sce,
+    model_name=MODEL_NAME,
+    verbose=True
+)
+
+outputParser = OutputParser(
+    sce=sce,
+    client=client,
+    model_name=MODEL_NAME
+)
+
+# 6. Main Loop
 output = None
 done = truncated = False
 frame = 0
+
+print(f"[bold green]Starting Simulation with Model: {MODEL_NAME}[/bold green]")
+
 try:
     while not (done or truncated):
+        # Update Scenario
         sce.upateVehicles(obs, frame)
+
+        # Run Driver Agent
         DA.agentRun(output)
         da_output = DA.exportThoughts()
+
+        # Run Output Parser
         output = outputParser.agentRun(da_output)
+
+        # Safe Action Handling
+        action_id = output.get("action_id", 1)  # Default to 1 (Idle/Keep Speed) if missing
+
+        # Ensure action is a standard python int for Gym
+        if not isinstance(action_id, int):
+            try:
+                action_id = int(action_id)
+            except:
+                action_id = 1
+
+        # Step Environment
+        obs, reward, done, truncated, info = env.step(action_id)
+
+        # Render
         env.render()
-        env.unwrapped.automatic_rendering_callback = env.video_recorder.capture_frame()
-        obs, reward, done, info, _ = env.step(output["action_id"])
-        print(output)
+
+        print(f"Frame {frame}: Action {action_id} | {output.get('action_name', 'Unknown')}")
         frame += 1
+
 finally:
     env.close()
+    print("[bold red]Simulation Ended[/bold red]")

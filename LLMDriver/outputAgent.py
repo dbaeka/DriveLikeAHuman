@@ -1,65 +1,70 @@
 import base64
 import json
-from rich import print
 import sqlite3
 
-from langchain.chat_models import AzureChatOpenAI
-from langchain.callbacks import get_openai_callback
-from langchain.output_parsers import ResponseSchema
-from langchain.output_parsers import StructuredOutputParser
-from langchain.prompts import ChatPromptTemplate, HumanMessagePromptTemplate
+from openai import OpenAI
+from rich import print
 
 from scenario.scenario import Scenario
 
 
 class OutputParser:
-    def __init__(self, sce: Scenario,llm, temperature: float = 0.0) -> None:
+    def __init__(self, sce: Scenario, client: OpenAI, model_name: str = "llama3-70b-8192") -> None:
         self.sce = sce
-        self.temperature = temperature
-        self.llm = llm
-        # todo: put into a yaml file
-        self.response_schemas = [
-            ResponseSchema(
-                name="action_id", description=f"output the id(int) of the decision. The comparative table is:  {{ 0: 'change_lane_left', 1: 'keep_speed or idle', 2: 'change_lane_right', 3: 'accelerate or faster',4: 'decelerate or slower'}} . For example, if the ego car wants to keep speed, please output 1 as a int."),
-            ResponseSchema(
-                name="action_name", description=f"output the name(str) of the decision. MUST consist with previous \"action_id\". The comparative table is:  {{ 0: 'change_lane_left', 1: 'keep_speed', 2: 'change_lane_right', 3: 'accelerate',4: 'decelerate'}} . For example, if the action_id is 3, please output 'Accelerate' as a str."),
-            ResponseSchema(
-                name="explanation", description=f"Explain for the driver why you make such decision in 40 words.")
-        ]
-        self.output_parser = StructuredOutputParser.from_response_schemas(
-            self.response_schemas)
-        self.format_instructions = self.output_parser.get_format_instructions()
+        self.client = client
+        self.model_name = model_name
 
-    def agentRun(self, final_results: dict) -> str:
+    def agentRun(self, final_results: dict) -> dict:
         print('[green]Output parser is running...[/green]')
-        prompt_template = ChatPromptTemplate(
-            messages=[
-                HumanMessagePromptTemplate.from_template(
-                    "parse the problem response follow the format instruction.\nformat_instructions:{format_instructions}\n response: {answer}")
-            ],
-            input_variables=["answer"],
-            partial_variables={"format_instructions": self.format_instructions}
-        )
-        input = prompt_template.format_prompt(
-            answer=final_results['answer']+final_results['thoughts'])
-        with get_openai_callback() as cb:
-            output = self.llm(input.to_messages())
 
-        self.parseredOutput = self.output_parser.parse(output.content)
-        self.dataCommit()
-        print("Finish output agent:\n", cb)
-        return self.parseredOutput
+        combined_input = f"{final_results.get('answer', '')} {final_results.get('thoughts', '')}"
+
+        system_prompt = """
+        You are a JSON formatting assistant.
+        Extract the decision from the text and output valid JSON.
+
+        Output Schema:
+        {
+            "action_id": int, // 0: change_lane_left, 1: keep_speed, 2: change_lane_right, 3: accelerate, 4: decelerate
+            "action_name": str, // Must match action_id (e.g. "change_lane_left")
+            "explanation": str // Summary in 40 words
+        }
+        """
+
+        user_prompt = f"Here is the model output:\n{combined_input}\n\nProvide the JSON response."
+
+        try:
+            response = self.client.chat.completions.create(
+                model=self.model_name,
+                messages=[
+                    {"role": "system", "content": system_prompt},
+                    {"role": "user", "content": user_prompt}
+                ],
+                response_format={"type": "json_object"},  # Groq supports this
+                temperature=0
+            )
+
+            content = response.choices[0].message.content
+            self.parseredOutput = json.loads(content)
+            self.dataCommit()
+            print("[cyan]Parser finished.[/cyan]")
+            return self.parseredOutput
+
+        except Exception as e:
+            print(f"[red]Parser Error: {e}[/red]")
+            return {}
 
     def dataCommit(self):
         conn = sqlite3.connect(self.sce.database)
         cur = conn.cursor()
-        parseredOutput = json.dumps(self.parseredOutput)
-        base64Output = base64.b64encode(
-            parseredOutput.encode('utf-8')).decode('utf-8')
-        cur.execute(
-            """UPDATE decisionINFO SET outputParser ='{}' WHERE frame ={};""".format(
-                base64Output, self.sce.frame
+
+        if hasattr(self, 'parseredOutput'):
+            json_str = json.dumps(self.parseredOutput)
+            base64Output = base64.b64encode(json_str.encode('utf-8')).decode('utf-8')
+
+            cur.execute(
+                "UPDATE decisionINFO SET outputParser = ? WHERE frame = ?",
+                (base64Output, self.sce.frame)
             )
-        )
-        conn.commit()
+            conn.commit()
         conn.close()
