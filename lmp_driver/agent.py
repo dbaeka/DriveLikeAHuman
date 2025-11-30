@@ -42,7 +42,8 @@ class LLMAgent:
                 {"role": "system", "content": SYSTEM_PROMPT},
                 {"role": "user", "content": context_str}
             ],
-            temperature=0.0
+            temperature=0.0,
+            seed=42
         )
 
         return self._clean_code(response.choices[0].message.content)
