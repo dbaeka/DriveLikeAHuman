@@ -2,7 +2,8 @@ import datetime
 import json
 import os
 import sys
-import time
+
+from gymnasium.wrappers import RecordVideo
 
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -12,21 +13,17 @@ from lampilot.agent import LLMAgent
 
 
 def log_decision_cycle(command, context, lmp_code, filename="talk2drive_log.json"):
-    """
-    Logs the Command -> Context -> LMP cycle for analysis.
-    """
     log_entry = {
         "timestamp": datetime.datetime.now().isoformat(),
         "command": command,
         "context": context,  # Weather, Time, Density
         "lmp": lmp_code  # The generated Python policy
     }
-
     with open(filename, "a") as f:
         f.write(json.dumps(log_entry) + "\n")
 
 
-def run_single_scenario(scenario_data):
+def run_single_scenario(scenario_data, video_folder):
     scenario_id = scenario_data['id']
     instruction = scenario_data['instruction']
 
@@ -46,6 +43,15 @@ def run_single_scenario(scenario_data):
         time_of_day=env_params['time_of_day']
     )
 
+    env.unwrapped.render_mode = "rgb_array"
+
+    env = RecordVideo(
+        env,
+        video_folder=video_folder,
+        name_prefix=f"scenario_{scenario_id}",
+        disable_logger=True
+    )
+
     env.reset()
     try:
         ego_vehicle = env.unwrapped.vehicle
@@ -57,7 +63,8 @@ def run_single_scenario(scenario_data):
             print("    🌑 Time updated: Visibility reduced (Night Mode)")
 
     except AttributeError:
-        print("    PhysicsVehicle not found. Using standard physics.")
+        pass
+
 
     primitives = LaMPilotPrimitives(env)
     try:
@@ -68,7 +75,6 @@ def run_single_scenario(scenario_data):
 
     print("    Generating Policy...")
     policy_code = agent.generate_policy(instruction, env_params)
-
     log_decision_cycle(instruction, env_params, policy_code)
 
     exec_scope = {}
@@ -87,7 +93,8 @@ def run_single_scenario(scenario_data):
     truncated = False
     step_count = 0
 
-    print("    🚗 Starting Drive...")
+    print(f"    🎥 Recording to {video_folder}/scenario_{scenario_id}.mp4 ...")
+
     while not (done or truncated):
         primitives.update(obs)
 
@@ -98,7 +105,6 @@ def run_single_scenario(scenario_data):
             break
 
         obs, reward, done, truncated, info = env.step(primitives.action)
-        env.render()
 
         step_count += 1
         # Stop after 20 seconds (15 FPS * 20 = 300 steps)
@@ -113,17 +119,19 @@ def run_single_scenario(scenario_data):
 def main():
     project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
     dataset_path = os.path.join(project_root, "dataset", "LaMPilot-Bench.json")
+    video_folder = os.path.join("results", "videos")
 
     if not os.path.exists(dataset_path):
-        print(f"❌ Error: Dataset not found at {dataset_path}")
+        print("Dataset not found.")
         return
+
+    os.makedirs(video_folder, exist_ok=True)
 
     with open(dataset_path, 'r') as f:
         scenarios = json.load(f)
 
     for scenario in scenarios:
-        run_single_scenario(scenario)
-        time.sleep(1)  # Brief pause between runs
+        run_single_scenario(scenario, video_folder)
 
 
 if __name__ == "__main__":
