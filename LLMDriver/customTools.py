@@ -52,22 +52,54 @@ class getAvailableActions:
             outputPrefix += ACTIONS_ALL.get(action, 'UNKNOWN') + \
                             '--' + ACTIONS_DESCRIPTION.get(action, '') + '; \n'
 
-        # Strategy Tips (This was forcing Grandma Mode!)
-        if 1 in availableActions:
-            outputPrefix += 'You should check idle action as FIRST priority. '
+        # Safety-focused action guidelines (no bias toward any specific action)
+        outputPrefix += '\n**MANDATORY SAFETY VERIFICATION FOR ALL ACTIONS:**\n'
+        outputPrefix += '\n⚠️  WARNING: You CANNOT assume lanes are empty. You MUST use Get_Lane_Involved_Car first!\n\n'
+
         if 0 in availableActions or 2 in availableActions:
-            outputPrefix += 'For change lane action, CAREFULLY CHECK the safety of vehicles on target lane. '
+            outputPrefix += '- Lane changes (left/right):\n'
+            outputPrefix += '  1. Call Get_Lane_Involved_Car with the target lane\n'
+            outputPrefix += '  2. For EACH vehicle returned, call Is_Change_Lane_Conflict_With_Car\n'
+            outputPrefix += '  3. Only proceed if ALL checks return "safe"\n\n'
         if 3 in availableActions:
-            outputPrefix += 'Consider acceleration action carefully. '
+            outputPrefix += '- Acceleration:\n'
+            outputPrefix += '  1. Call Get_Lane_Involved_Car with your current lane\n'
+            outputPrefix += '  2. For EACH vehicle AHEAD of you, call Is_Acceleration_Conflict_With_Car\n'
+            outputPrefix += '  3. Only proceed if ALL checks return "safe"\n\n'
+        if 1 in availableActions:
+            outputPrefix += '- Idle (maintain speed):\n'
+            outputPrefix += '  1. Call Get_Lane_Involved_Car with your current lane\n'
+            outputPrefix += '  2. For EACH vehicle AHEAD of you, call Is_Keep_Speed_Conflict_With_Car\n'
+            outputPrefix += '  3. Only proceed if ALL checks return "safe"\n\n'
         if 4 in availableActions:
-            outputPrefix += 'The deceleration action is LAST priority. '
+            outputPrefix += '- Deceleration:\n'
+            outputPrefix += '  1. Call Get_Lane_Involved_Car with your current lane\n'
+            outputPrefix += '  2. For EACH vehicle BEHIND you, call Is_Deceleration_Safe\n'
+            outputPrefix += '  3. IMPORTANT: Vehicles behind you may not be able to stop in time if you decelerate suddenly\n'
+            outputPrefix += '  4. If unsafe with vehicles behind, consider lane change instead\n\n'
 
+        outputPrefix += """
+🚨 CRITICAL SAFETY PROCEDURE (YOU MUST FOLLOW THIS):
+Step 1: Identify which lane your action affects
+        - Acceleration, deceleration, idle → affect CURRENT lane
+        - Lane changes → affect TARGET lane
+Step 2: Call Get_Lane_Involved_Car for that lane
+        - This returns ALL vehicles in that lane
+        - If it returns vehicles, you MUST check them
+        - If it says "no cars", you still need to verify with scenario data
+Step 3: For EACH vehicle returned in Step 2, call the appropriate safety tool
+        - Is_Change_Lane_Conflict_With_Car for lane changes
+        - Is_Acceleration_Conflict_With_Car for acceleration
+        - Is_Keep_Speed_Conflict_With_Car for maintaining speed
+        - Is_Deceleration_Safe for deceleration
+Step 4: ONLY proceed if ALL safety checks pass
 
-        outputPrefix += """\nTo check decision safety you should follow steps:
-        Step 1: Get the vehicles in this lane that you may affect. Acceleration, deceleration and idle action affect the current lane, while left and right lane changes affect the corresponding lane.
-        Step 2: If there are vehicles, check safety between ego and all vehicles in the action lane ONE by ONE.
-        Remember to use the proper tools mentioned in the tool list ONCE a time.
-        """
+❌ FORBIDDEN: Saying "there are no vehicles" without calling Get_Lane_Involved_Car
+❌ FORBIDDEN: Skipping safety checks for any vehicle returned by Get_Lane_Involved_Car
+✅ REQUIRED: Check safety with EVERY vehicle in the affected lane
+
+Remember to use the proper tools mentioned in the tool list ONCE at a time.
+"""
         return outputPrefix
 
 
@@ -142,7 +174,7 @@ class getLaneInvolvedCar:
             try:
                 rearingCar = laneVehicles[-1][0]
             except IndexError:
-                return f'There is no car driving on {laneID},  This lane is safe, you donot need to check for any vehicle for safety! you can drive on this lane as fast as you can.'
+                return f'There is no car driving on {laneID}. This lane appears clear, but you should still verify safety before taking action.'
             return f"{rearingCar} is driving on {laneID}, and it's driving behind ego car. You need to make sure that your actions do not conflict with each of the vehicles mentioned."
         elif leadingCarIdx == 0:
             leadingCar = laneVehicles[0][0]
@@ -205,20 +237,25 @@ class isAccelerationConflictWithCar:
             return "You are checking the acceleration of ego car, which is meaningless, input a valid vehicle id please!"
         veh = self.sce.vehicles[vid]
         ego = self.sce.vehicles['ego']
+
+        # Only check vehicles in the same lane
         if veh.lane_id != ego.lane_id:
             return f'{vid} is not in the same lane with ego, please call `Get Lane Involved Car` and rethink your input.'
-        if veh.lane_id == ego.lane_id:
-            if veh.lanePosition >= ego.lanePosition:
-                relativeSpeed = ego.speed + self.acceleration - veh.speed
-                distance = veh.lanePosition - ego.lanePosition - self.VEHICLE_LENGTH * 2
-                if distance > self.TIME_HEAD_WAY * relativeSpeed:
-                    return f"acceleration is safe with `{vid}`."
-                else:
-                    return f"acceleration may be conflict with `{vid}`, which is unacceptable."
+
+        # Check if vehicle is ahead of ego
+        if veh.lanePosition >= ego.lanePosition:
+            # Vehicle is ahead - need to verify safety
+            distance = veh.lanePosition - ego.lanePosition - self.VEHICLE_LENGTH * 2
+            relativeSpeed = ego.speed + self.acceleration - veh.speed
+            required_distance = self.TIME_HEAD_WAY * relativeSpeed
+
+            if distance > required_distance:
+                return f"Acceleration is safe with `{vid}`. Distance: {distance:.1f}m, Required: {required_distance:.1f}m, Ego speed: {ego.speed:.1f}m/s, {vid} speed: {veh.speed:.1f}m/s."
             else:
-                return f"acceleration is safe with {vid}"
+                return f"Acceleration may conflict with `{vid}` which is UNACCEPTABLE. Distance: {distance:.1f}m is less than required {required_distance:.1f}m. Consider maintaining speed or decelerating."
         else:
-            return f"acceleration is safe with {vid}"
+            # Vehicle is behind ego - generally safe to accelerate
+            return f"Acceleration is safe with {vid} (vehicle is behind ego)."
 
 
 class isKeepSpeedConflictWithCar:
@@ -260,25 +297,31 @@ class isDecelerationSafe:
         self.deceleration = 3.0
 
     @prompts(name='Is_Deceleration_Safe',
-             description="""useful when you want to know whether deceleration is safe, ONLY when your decision is decelerate.The input to this tool should be a string, representing the id of the car you want to check.""")
+             description="""useful when you want to know whether deceleration is safe, ONLY when your decision is decelerate. The input to this tool should be a string, representing the id of the car you want to check. IMPORTANT: Deceleration primarily affects vehicles BEHIND you, so check vehicles behind ego.""")
     def inference(self, vid: str) -> str:
         if vid not in self.sce.vehicles:
             return "Your input is not a valid vehicle id, make sure you use `Get Lane Involved Car` tool first!"
         if vid == 'ego':
-            return "You are checking the acceleration of ego car, which is meaningless, input a valid vehicle id please!"
+            return "You are checking the deceleration of ego car, which is meaningless, input a valid vehicle id please!"
         veh = self.sce.vehicles[vid]
         ego = self.sce.vehicles['ego']
+
+        # Only check vehicles in the same lane
         if veh.lane_id != ego.lane_id:
             return f'{vid} is not in the same lane with ego, please call `Get Lane Involved Car` and rethink your input.'
-        if veh.lane_id == ego.lane_id:
-            if veh.lanePosition >= ego.lanePosition:
-                relativeSpeed = ego.speed - veh.speed - self.deceleration
-                distance = veh.lanePosition - ego.lanePosition - self.VEHICLE_LENGTH
-                if distance > self.TIME_HEAD_WAY * relativeSpeed:
-                    return f"deceleration with current speed is safe with {vid}"
-                else:
-                    return f"deceleration with current speed may be conflict with {vid}, if you have no other choice, slow down as much as possible"
+
+        # Check if vehicle is BEHIND ego (this is what matters for deceleration!)
+        if veh.lanePosition < ego.lanePosition:
+            # Vehicle is behind - need to check if it can stop in time
+            distance = ego.lanePosition - veh.lanePosition - self.VEHICLE_LENGTH
+            # Relative approach speed if ego decelerates
+            relativeSpeed = veh.speed - (ego.speed - self.deceleration)
+            required_distance = self.TIME_HEAD_WAY * relativeSpeed
+
+            if distance > required_distance:
+                return f"Deceleration is safe with `{vid}` (behind ego). Distance: {distance:.1f}m, Required: {required_distance:.1f}m, Ego speed: {ego.speed:.1f}m/s, {vid} speed: {veh.speed:.1f}m/s."
             else:
-                return f"deceleration with current speed is safe with {vid}"
+                return f"Deceleration may cause conflict with `{vid}` (behind ego) which is UNACCEPTABLE. Distance: {distance:.1f}m is less than required {required_distance:.1f}m. Vehicle behind may not be able to stop in time. Consider lane change instead."
         else:
-            return f"deceleration with current speed is safe with {vid}"
+            # Vehicle is ahead - deceleration won't affect it negatively, always safe
+            return f"Deceleration is safe with {vid} (vehicle is ahead of ego, not affected by our deceleration)."

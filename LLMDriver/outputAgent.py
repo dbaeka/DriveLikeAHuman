@@ -24,10 +24,17 @@ class OutputParser:
         You are a JSON formatting assistant.
         Extract the decision from the text and output valid JSON.
 
+        The decision may be in one of these formats:
+        - LANE_LEFT or change_lane_left → action_id: 0
+        - IDLE or keep_speed → action_id: 1
+        - LANE_RIGHT or change_lane_right → action_id: 2
+        - FASTER or accelerate → action_id: 3
+        - SLOWER or decelerate → action_id: 4
+
         Output Schema:
         {
-            "action_id": int, // 0: change_lane_left, 1: keep_speed, 2: change_lane_right, 3: accelerate, 4: decelerate
-            "action_name": str, // Must match action_id (e.g. "change_lane_left")
+            "action_id": int, // 0-4 based on above mapping
+            "action_name": str, // Use lowercase format (e.g. "change_lane_left", "keep_speed", "accelerate")
             "explanation": str // Summary in 40 words
         }
         """
@@ -65,10 +72,13 @@ class OutputParser:
 
         except Exception as e:
             print(f"[red]Parser Error: {e}[/red]")
+            print(f"[yellow]Raw model output that failed to parse:[/yellow]")
+            print(f"[yellow]{combined_input[:500]}...[/yellow]")
+            print(f"[red]⚠️  DEFAULTING TO KEEP_SPEED DUE TO PARSER ERROR![/red]")
             return {
                 "action_id": 1,
                 "action_name": "keep_speed",
-                "explanation": "Error in parsing, defaulting to keep speed"
+                "explanation": f"Error in parsing ({str(e)[:50]}), defaulting to keep speed for safety"
             }
 
     def dataCommit(self):

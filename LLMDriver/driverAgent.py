@@ -92,28 +92,59 @@ class DriverAgent:
 
         # SMART UPDATE: Dynamic Prompt Injection based on Benchmarks
         weather_context = ""
+        safety_adjustment = ""
         if self.weather == "foggy":
-            weather_context = "CONDITION WARNING: Heavy Fog. Visibility is low. Sensor noise is high. Increase safety margins."
+            weather_context = "Heavy Fog. Visibility is low. Sensor noise is high."
+            safety_adjustment = "INCREASE safety margins by 50%. Be extra cautious."
         elif self.weather == "rainy":
-            weather_context = "CONDITION WARNING: Rain. Road friction is low. Braking distance is increased."
+            weather_context = "Rain. Road friction is low. Braking distance is increased."
+            safety_adjustment = "INCREASE safety margins by 30%. Avoid sudden maneuvers."
         elif self.weather == "sunny":
-            weather_context = "CONDITION WARNING: Sunny. Road friction is high. Braking distance is decreased."
+            weather_context = "Sunny. Normal road conditions."
+            safety_adjustment = "Standard safety margins apply."
         elif self.weather == "windy":
-            weather_context = "CONDITION WARNING: Windy. Road friction is high. Braking distance is increased."
+            weather_context = "Windy. Vehicle stability may be affected."
+            safety_adjustment = "INCREASE safety margins by 20%. Avoid high speeds."
         elif self.weather == "snowy":
-            weather_context = "CONDITION WARNING: Snowy. Road friction is low. Braking distance is decreased."
+            weather_context = "Snowy. Road friction is very low."
+            safety_adjustment = "INCREASE safety margins by 50%. Be extremely cautious."
 
         user_prompt = f"""
         You, the 'ego' car, are now driving a car on a highway. You have already drive for {self.sce.frame} seconds.
         The decision you made LAST time step was `{last_step_action}`. Your explanation was `{last_step_explanation}`. 
         Here is the current scenario: \n ```json\n{self.sce.export2json()}\n```\n. 
         
-        BENCHMARK CONTEXT:
-        1. Weather Condition: {self.weather.upper()}
-        2. Mission Instruction: "{self.instruction}"
-        3. {weather_context}
+        ========================================
+        ENVIRONMENTAL CONTEXT:
+        Weather Condition: {self.weather.upper()}
+        Condition Details: {weather_context}
+        Safety Adjustment Required: {safety_adjustment}
+        ========================================
+        
+        DRIVING STYLE PREFERENCE (Secondary to Safety):
+        "{self.instruction}"
+        
+        IMPORTANT: The driving style preference is a SUGGESTION for how to drive WHEN IT IS SAFE to do so. 
+        It does NOT override safety rules. If the style conflicts with safety, ALWAYS choose safety.
+        For example:
+        - "Drive like Vin Diesel" means be confident and efficient with lane changes, BUT only when verified safe
+        - "Drive like a grandma" means be extra cautious and slow, prioritizing comfort over speed
+        - In ALL cases, collision avoidance is the top priority
+        ========================================
 
-        Please make decision for the `ego` car. Analyze the state, consider the WEATHER and MISSION INSTRUCTION, use tools to verify safety, and output your decision.
+        Please make decision for the `ego` car using the following MANDATORY steps:
+        
+        Step 1: Analyze the current state and weather conditions
+        Step 2: Use Get_Available_Actions to know what actions are possible
+        Step 3: For EACH action you are considering:
+                a) Use Get_Lane_Involved_Car to find ALL vehicles in the lane affected by that action
+                b) For EACH vehicle found, use the appropriate safety tool (Is_Acceleration_Conflict_With_Car, etc.)
+                c) Only if ALL safety checks pass, the action is safe
+        Step 4: Choose an action that is SAFE first, and matches the driving style second
+        Step 5: Output your decision with clear explanation
+        
+        CRITICAL REMINDER: You CANNOT assume there are no vehicles. You MUST use Get_Lane_Involved_Car first. 
+        If you skip this step and cause a collision, you have failed your primary objective.
 
         Output format:
         Final Answer: 
@@ -142,7 +173,31 @@ class DriverAgent:
                     api_params["tools"] = self.tools_schema
                     api_params["tool_choice"] = "auto"
 
-                response = self.client.chat.completions.create(**api_params)
+                try:
+                    response = self.client.chat.completions.create(**api_params)
+                except Exception as api_error:
+                    error_msg = str(api_error)
+
+                    # If the error is about invalid tool names, try without tools
+                    if "tool_use_failed" in error_msg or "validation failed" in error_msg:
+                        print(f"[yellow]Tool call validation failed. Model may not support tool calling properly.[/yellow]")
+                        print(f"[yellow]Error: {error_msg}[/yellow]")
+                        print(f"[red]RECOMMENDATION: Switch to a model with better tool support (e.g., gpt-4o, llama-3.1-70b-versatile)[/red]")
+
+                        # Fallback: try without tools and ask the model to respond in text
+                        fallback_message = messages[-1]["content"] if messages else user_prompt
+                        fallback_message += "\n\nIMPORTANT: Your model does not support tool calling. Please provide your decision directly in the format:\nFinal Answer:\n\"decision\": {{action}},\n\"explanations\": {{explanation}}"
+
+                        messages[-1] = {"role": "user", "content": fallback_message}
+
+                        response = self.client.chat.completions.create(
+                            model=self.model_name,
+                            messages=messages,
+                            temperature=0.0
+                        )
+                    else:
+                        # Re-raise if it's a different error
+                        raise
 
                 msg = response.choices[0].message
                 content = msg.content
@@ -157,7 +212,18 @@ class DriverAgent:
                     messages.append(msg)
 
                     for tool_call in tool_calls:
-                        func_name = tool_call.function.name
+                        # ROBUST SANITIZATION: Handle models that add extra tokens
+                        raw_func_name = tool_call.function.name
+
+                        # Remove common LLM artifacts and special tokens
+                        func_name = raw_func_name.split('<|')[0]  # Remove <|channel|>, <|endoftext|>, etc.
+                        func_name = func_name.split('|')[0]  # Remove any pipe-based tokens
+                        func_name = func_name.strip()  # Remove whitespace
+
+                        # Log the sanitization if it occurred
+                        if raw_func_name != func_name:
+                            print(f"[yellow]Sanitized tool name: '{raw_func_name}' -> '{func_name}'[/yellow]")
+
                         func_args = json.loads(tool_call.function.arguments)
 
                         self.ch.log_tool_call(func_name, str(func_args))
@@ -175,7 +241,22 @@ class DriverAgent:
                             except Exception as e:
                                 tool_result = f"Error executing tool: {e}"
                         else:
-                            tool_result = f"Error: Tool {func_name} not found."
+                            # Fuzzy match: try to find a close match in the registry
+                            possible_matches = [k for k in self.tool_registry.keys() if k.lower() in func_name.lower() or func_name.lower() in k.lower()]
+                            if possible_matches:
+                                matched_name = possible_matches[0]
+                                print(f"[yellow]Fuzzy matched '{func_name}' to '{matched_name}'[/yellow]")
+                                tool_func = self.tool_registry[matched_name]
+                                func_name = matched_name
+                                try:
+                                    arg_val = func_args.get("query")
+                                    if arg_val is None and len(func_args) > 0:
+                                        arg_val = list(func_args.values())[0]
+                                    tool_result = tool_func(str(arg_val))
+                                except Exception as e:
+                                    tool_result = f"Error executing tool: {e}"
+                            else:
+                                tool_result = f"Error: Tool '{func_name}' not found. Available tools: {list(self.tool_registry.keys())}"
 
                         self.ch.log_observation(str(tool_result))
 
